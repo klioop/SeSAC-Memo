@@ -20,12 +20,17 @@ class MainViewController: UIViewController {
         view.backgroundColor = UIColor(named: Color.mainBackGround.rawValue)
         setUpTitleView()
         setUpSearchController()
+        configureTableView()
     }
     
     // MARK: - private func
     
     private func configureTableView() {
-        
+        let bundle = Bundle(for: MainTableViewCell.self)
+        let nib = UINib(nibName: MainTableViewCell.cellId, bundle: bundle)
+        mainTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
+        mainTableView.delegate = self
+//        mainTableView.dataSource = MainTableViewDataSource()
     }
     
     private func setUpTitleView() {
@@ -59,5 +64,11 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         print(searchController.searchBar.text ?? "Hello")
     }
+    
+}
+
+extension MainViewController: UITableViewDelegate {
+    
+    
     
 }
