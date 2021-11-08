@@ -9,20 +9,35 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search Result View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="SearchResultViewController" customModule="Memo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="USS-6Z-TrV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="USS-6Z-TrV" secondAttribute="bottom" id="MT7-mF-eL3"/>
+                            <constraint firstItem="USS-6Z-TrV" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="SBu-PA-3Eb"/>
+                            <constraint firstItem="USS-6Z-TrV" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="lGy-vI-RM1"/>
+                            <constraint firstItem="USS-6Z-TrV" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pBH-F3-qYb"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="resultTableView" destination="USS-6Z-TrV" id="bRy-VB-uld"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="57" y="116"/>
+            <point key="canvasLocation" x="56.521739130434788" y="115.84821428571428"/>
         </scene>
     </scenes>
     <resources>

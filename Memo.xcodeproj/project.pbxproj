@@ -17,6 +17,9 @@
 		31226ED927391D9600C6BAA0 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31226ED827391D9600C6BAA0 /* RealmSwift */; };
 		31226EDC2739207300C6BAA0 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31226EDB2739207300C6BAA0 /* Search.storyboard */; };
 		31226EDE2739209F00C6BAA0 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EDD2739209F00C6BAA0 /* SearchResultViewController.swift */; };
+		31226EE12739248C00C6BAA0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EE02739248C00C6BAA0 /* Constants.swift */; };
+		31226EE52739263600C6BAA0 /* MemoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EE42739263600C6BAA0 /* MemoObject.swift */; };
+		31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EE6273927CA00C6BAA0 /* PersistanceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		31226ED32739147500C6BAA0 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		31226EDB2739207300C6BAA0 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		31226EDD2739209F00C6BAA0 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		31226EE02739248C00C6BAA0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		31226EE42739263600C6BAA0 /* MemoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoObject.swift; sourceTree = "<group>"; };
+		31226EE6273927CA00C6BAA0 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,9 @@
 		31226EBC2739133800C6BAA0 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				31226EE32739262600C6BAA0 /* Manager */,
+				31226EE22739261F00C6BAA0 /* Realm */,
+				31226EDF2739246F00C6BAA0 /* Utilities */,
 				31226ED22739137600C6BAA0 /* Main */,
 				31226EDA2739205200C6BAA0 /* Search */,
 				31226ED12739134700C6BAA0 /* Supportings */,
@@ -99,6 +108,30 @@
 				31226EDD2739209F00C6BAA0 /* SearchResultViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		31226EDF2739246F00C6BAA0 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				31226EE02739248C00C6BAA0 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		31226EE22739261F00C6BAA0 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				31226EE42739263600C6BAA0 /* MemoObject.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		31226EE32739262600C6BAA0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				31226EE6273927CA00C6BAA0 /* PersistanceManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,10 +213,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31226EE52739263600C6BAA0 /* MemoObject.swift in Sources */,
+				31226EE12739248C00C6BAA0 /* Constants.swift in Sources */,
 				31226ED42739147500C6BAA0 /* MainViewController.swift in Sources */,
 				31226EBE2739133800C6BAA0 /* AppDelegate.swift in Sources */,
 				31226EDE2739209F00C6BAA0 /* SearchResultViewController.swift in Sources */,
 				31226EC02739133800C6BAA0 /* SceneDelegate.swift in Sources */,
+				31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

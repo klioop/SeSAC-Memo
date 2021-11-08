@@ -9,13 +9,18 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: Color.mainBackGround.rawValue)
         setUpTitleView()
         setUpSearchController()
     }
     
-    func setUpTitleView() {
+    // MARK: - private func
+    
+    private func setUpTitleView() {
         let titleView =  UIView(
                 frame: CGRect(
                     x: 0,
@@ -31,7 +36,7 @@ class MainViewController: UIViewController {
         navigationItem.titleView = titleView
     }
     
-    func setUpSearchController() {
+    private func setUpSearchController() {
         let resultVC = SearchResultViewController()
         let searchVC = UISearchController(searchResultsController: resultVC)
         
