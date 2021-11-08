@@ -11,12 +11,25 @@
       "appearances" : [
         {
           "appearance" : "luminosity",
+          "value" : "light"
+        }
+      ],
+      "color" : {
+        "platform" : "ios",
+        "reference" : "systemGray4Color"
+      },
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
           "value" : "dark"
         }
       ],
       "color" : {
         "platform" : "ios",
-        "reference" : "secondarySystemBackgroundColor"
+        "reference" : "tertiarySystemBackgroundColor"
       },
       "idiom" : "universal"
     }

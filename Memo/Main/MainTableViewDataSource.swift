@@ -13,14 +13,33 @@ class MainTableViewDataSource: NSObject {
         case fixed
         case main
         
-        var numberOfRows: Int {
+        var headerText: String {
             switch self {
             case .fixed:
-                return 5
+                return "고정된 메모"
             case .main:
-                return 10
+                return "메모"
             }
         }
+    }
+    
+    let viewModel: MainViewModel
+    
+    private func dequeueAndConfigureCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { fatalError("Could not find the cell") }
+        
+        var memo: Memo
+        if indexPath.section == 1 {
+            memo = viewModel.data[indexPath.row]
+            cell.configure(for: memo)
+        }
+        
+        return cell
+    }
+    
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init()
     }
     
 }
@@ -32,10 +51,15 @@ extension MainTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Section(rawValue: section)?.numberOfRows ?? 0
+        Section(rawValue: section)?.rawValue == 0 ? viewModel.fixedMemo.count : viewModel.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        dequeueAndConfigureCell(tableView, indexPath: indexPath)
     }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        Section(rawValue: section)?.headerText
+    }
+    
 }

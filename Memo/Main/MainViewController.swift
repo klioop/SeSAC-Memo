@@ -13,6 +13,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     
+    var dataSource: MainTableViewDataSource?
+    
     // MARK: - life cycle
     
     override func viewDidLoad() {
@@ -30,7 +32,9 @@ class MainViewController: UIViewController {
         let nib = UINib(nibName: MainTableViewCell.cellId, bundle: bundle)
         mainTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
         mainTableView.delegate = self
-//        mainTableView.dataSource = MainTableViewDataSource()
+        dataSource = MainTableViewDataSource(viewModel: MainViewModel())
+        mainTableView.dataSource = dataSource
+        mainTableView.backgroundColor = UIColor(named: Color.tableViewBackground.rawValue)
     }
     
     private func setUpTitleView() {

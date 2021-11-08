@@ -9,4 +9,5 @@ import Foundation
 
 enum Color: String {
     case mainBackGround = "background1"
+    case tableViewBackground = "background2"
 }

@@ -27,4 +27,22 @@ class MainTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    public func configure(for memo: Memo) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.locale = .current
+        
+        titleLabel.text = memo.title
+        dateLabel.text = formatter.string(from: memo.dateWritten)
+        contentLabel.text = memo.content
+    }
+    
+    // MARK: - private func
+    
+    private func configureOutlets() {
+        titleLabel.font = .systemFont(ofSize: 20, weight: .bold)
+        dateLabel.font = .systemFont(ofSize: 12, weight: .medium)
+        contentLabel.font = .systemFont(ofSize: 12, weight: .medium)
+    }
+    
 }
