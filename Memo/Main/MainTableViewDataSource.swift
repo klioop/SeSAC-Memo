@@ -58,8 +58,4 @@ extension MainTableViewDataSource: UITableViewDataSource {
         dequeueAndConfigureCell(tableView, indexPath: indexPath)
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        Section(rawValue: section)?.headerText
-    }
-    
 }

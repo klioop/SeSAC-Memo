@@ -13,7 +13,13 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     
-    var dataSource: MainTableViewDataSource?
+    // MARK: - public
+   
+    
+    // MARK: - private properties
+    
+    private var dataSource: MainTableViewDataSource?
+    
     
     // MARK: - life cycle
     
@@ -31,6 +37,7 @@ class MainViewController: UIViewController {
         let bundle = Bundle(for: MainTableViewCell.self)
         let nib = UINib(nibName: MainTableViewCell.cellId, bundle: bundle)
         mainTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
+        mainTableView.register(MainTableHeader.self, forHeaderFooterViewReuseIdentifier: MainTableHeader.headerId)
         mainTableView.delegate = self
         dataSource = MainTableViewDataSource(viewModel: MainViewModel())
         mainTableView.dataSource = dataSource
@@ -73,6 +80,20 @@ extension MainViewController: UISearchResultsUpdating {
 
 extension MainViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        MainTableHeader.preferredHeight
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableHeader.headerId)
+                as? MainTableHeader else { fatalError("could not find the header")}
+        if section == 0 {
+            header.configure(with: .init(memoType: .fixed))
+        } else {
+            header.configure(with: .init(memoType: .normal))
+        }
+        
+        return header
+    }
     
 }

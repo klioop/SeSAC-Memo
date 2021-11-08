@@ -27,6 +27,7 @@
 		31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */; };
 		31226EF62739399C00C6BAA0 /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */; };
 		31226EF82739436000C6BAA0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF72739436000C6BAA0 /* MainViewModel.swift */; };
+		31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5F3F227396C25001270B3 /* MainTableHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
 		31226EF72739436000C6BAA0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		31C5F3F227396C25001270B3 /* MainTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 		31C5F3F12739681C001270B3 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				31C5F3F227396C25001270B3 /* MainTableHeader.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				31226EF1273938D200C6BAA0 /* Memo.swift in Sources */,
 				31226EC02739133800C6BAA0 /* SceneDelegate.swift in Sources */,
 				31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */,
+				31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */,
 				31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
