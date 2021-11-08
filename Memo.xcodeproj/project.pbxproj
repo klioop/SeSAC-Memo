@@ -22,6 +22,10 @@
 		31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EE6273927CA00C6BAA0 /* PersistanceManager.swift */; };
 		31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EE82739291A00C6BAA0 /* UserDefaultWrapper.swift */; };
 		31226EEC2739294500C6BAA0 /* UserDefault+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EEB2739294500C6BAA0 /* UserDefault+extensions.swift */; };
+		31226EEE27392D5000C6BAA0 /* MainTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EED27392D5000C6BAA0 /* MainTableViewDataSource.swift */; };
+		31226EF1273938D200C6BAA0 /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF0273938D200C6BAA0 /* MemoModel.swift */; };
+		31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */; };
+		31226EF62739399C00C6BAA0 /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		31226EE6273927CA00C6BAA0 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		31226EE82739291A00C6BAA0 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		31226EEB2739294500C6BAA0 /* UserDefault+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+extensions.swift"; sourceTree = "<group>"; };
+		31226EED27392D5000C6BAA0 /* MainTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewDataSource.swift; sourceTree = "<group>"; };
+		31226EF0273938D200C6BAA0 /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,7 @@
 		31226EBC2739133800C6BAA0 /* Memo */ = {
 			isa = PBXGroup;
 			children = (
+				31226EEF273938BE00C6BAA0 /* Model */,
 				31226EE32739262600C6BAA0 /* Manager */,
 				31226EE22739261F00C6BAA0 /* Realm */,
 				31226EDF2739246F00C6BAA0 /* Utilities */,
@@ -99,8 +108,10 @@
 		31226ED22739137600C6BAA0 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				31226EF22739398400C6BAA0 /* Cell */,
 				31226EC32739133800C6BAA0 /* Main.storyboard */,
 				31226ED32739147500C6BAA0 /* MainViewController.swift */,
+				31226EED27392D5000C6BAA0 /* MainTableViewDataSource.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -146,6 +157,23 @@
 				31226EEB2739294500C6BAA0 /* UserDefault+extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		31226EEF273938BE00C6BAA0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				31226EF0273938D200C6BAA0 /* MemoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		31226EF22739398400C6BAA0 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */,
+				31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +245,7 @@
 				31226EC72739133900C6BAA0 /* Assets.xcassets in Resources */,
 				31226EDC2739207300C6BAA0 /* Search.storyboard in Resources */,
 				31226EC52739133800C6BAA0 /* Main.storyboard in Resources */,
+				31226EF62739399C00C6BAA0 /* MainTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,11 +259,14 @@
 				31226EEC2739294500C6BAA0 /* UserDefault+extensions.swift in Sources */,
 				31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */,
 				31226EE52739263600C6BAA0 /* MemoObject.swift in Sources */,
+				31226EEE27392D5000C6BAA0 /* MainTableViewDataSource.swift in Sources */,
 				31226EE12739248C00C6BAA0 /* Constants.swift in Sources */,
 				31226ED42739147500C6BAA0 /* MainViewController.swift in Sources */,
 				31226EBE2739133800C6BAA0 /* AppDelegate.swift in Sources */,
 				31226EDE2739209F00C6BAA0 /* SearchResultViewController.swift in Sources */,
+				31226EF1273938D200C6BAA0 /* MemoModel.swift in Sources */,
 				31226EC02739133800C6BAA0 /* SceneDelegate.swift in Sources */,
+				31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */,
 				31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

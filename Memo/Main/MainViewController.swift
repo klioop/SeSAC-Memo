@@ -9,6 +9,10 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    // MARK: - interface builder
+    
+    @IBOutlet weak var mainTableView: UITableView!
+    
     // MARK: - life cycle
     
     override func viewDidLoad() {
@@ -19,6 +23,10 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - private func
+    
+    private func configureTableView() {
+        
+    }
     
     private func setUpTitleView() {
         let titleView =  UIView(
