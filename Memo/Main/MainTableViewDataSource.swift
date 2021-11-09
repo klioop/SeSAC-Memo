@@ -23,8 +23,10 @@ class MainTableViewDataSource: NSObject {
         var memo: MemoObject
         if indexPath.section == 1 {
             memo = viewModel.data[indexPath.row]
-            cell.configure(for: memo)
+        } else {
+            memo = viewModel.fixedMemo[indexPath.row]
         }
+        cell.configure(for: memo)
         
         return cell
     }

@@ -54,9 +54,10 @@ class EditViewController: UIViewController {
         if viewModel.memo == nil {
             textViewEditor.text = ""
             textViewEditor.becomeFirstResponder()
+        } else {
+            textViewEditor.text = "\(viewModel.memo?.title ?? "?")\n\(viewModel.memo?.content ?? "?")"
         }
     }
-    
 }
 
 extension EditViewController: UITextViewDelegate {
