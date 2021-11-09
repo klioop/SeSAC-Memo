@@ -12,19 +12,27 @@ struct MainViewModel {
     
     let realmManager: PersistanceManager
     
-    var data: Results<MemoObject>
+    var memos: Results<MemoObject>
     
-    var fixedMemo: [MemoObject] = [
-        MemoObject(title: "dd", content: nil, dateWritten: Date(), dateEditted: Date()),
-        MemoObject(title: "Hello, world", content: nil, dateWritten: Date(), dateEditted: Date())
-    ]
+    var fixedMemo: Results<MemoObject>
     
     func findFixedMemo(at index: Int) -> MemoObject {
         fixedMemo[index]
     }
     
-    func findMemo(at Index: Int) -> MemoObject {
-        data[index]
+    func findMemo(at index: Int) -> MemoObject {
+        memos[index]
+    }
+    
+    func fixMemo(at index: Int) {
+        if fixedMemo.count < 6 {
+            let memo = findMemo(at: index)
+            realmManager.fixMemo(memo)
+        }
+    }
+    
+    func deleteMemo(at index: Int) {
+        
     }
     
     
@@ -34,6 +42,7 @@ extension MainViewModel {
     
     init(realmManager: PersistanceManager) {
         self.realmManager = realmManager
-        data = realmManager.loadAllMemos()
+        memos = realmManager.loadAllNonFixedMemos()
+        fixedMemo = realmManager.loadAllFixedMemos()
     }
 }
