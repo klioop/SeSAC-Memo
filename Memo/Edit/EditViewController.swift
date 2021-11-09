@@ -23,10 +23,16 @@ class EditViewController: UIViewController {
         
     }
     
+    var isNew = true
+    
+    
     // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTextView()
+        configureInitialScene()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -34,8 +40,17 @@ class EditViewController: UIViewController {
     }
     
     
+    // MARK: - private func
+    
     private func configureTextView() {
         textViewEditor.delegate = self
+    }
+    
+    private func configureInitialScene() {
+        if isNew {
+            textViewEditor.text = ""
+            textViewEditor.becomeFirstResponder()
+        }
     }
     
 }

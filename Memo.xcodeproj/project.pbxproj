@@ -30,6 +30,7 @@
 		31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5F3F227396C25001270B3 /* MainTableHeader.swift */; };
 		31C88525273A6ABE004828DB /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31C88524273A6ABE004828DB /* Edit.storyboard */; };
 		31C88527273A6AD3004828DB /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88526273A6AD3004828DB /* EditViewController.swift */; };
+		31C88529273A73BD004828DB /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88528273A73BD004828DB /* EditViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		31C5F3F227396C25001270B3 /* MainTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableHeader.swift; sourceTree = "<group>"; };
 		31C88524273A6ABE004828DB /* Edit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		31C88526273A6AD3004828DB /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
+		31C88528273A73BD004828DB /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 			children = (
 				31C88524273A6ABE004828DB /* Edit.storyboard */,
 				31C88526273A6AD3004828DB /* EditViewController.swift */,
+				31C88528273A73BD004828DB /* EditViewModel.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31C88529273A73BD004828DB /* EditViewModel.swift in Sources */,
 				31226EEC2739294500C6BAA0 /* UserDefault+extensions.swift in Sources */,
 				31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */,
 				31226EE52739263600C6BAA0 /* MemoObject.swift in Sources */,

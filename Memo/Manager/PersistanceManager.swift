@@ -10,17 +10,28 @@ import RealmSwift
 
 class PersistanceManager {
     
+    enum RealmError: Error {
+        case faildToCreateMemo
+        
+        var errorMessage: String {
+            switch self {
+            case .faildToCreateMemo: return "메모 생성에 실패하였습니다."
+            }
+        }
+    }
+    
     static let shared = PersistanceManager()
     
     private let localRealm = try! Realm()
     
-    func addMemo(_ memo: MemoObject) {
+    func addMemo(_ memo: MemoObject) throws {
         do {
             try localRealm.write {
                 localRealm.add(memo)
             }
         } catch {
-            print(error.localizedDescription)
+            let error = RealmError.faildToCreateMemo
+            print(error.errorMessage)
         }
     }
     
