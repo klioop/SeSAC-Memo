@@ -31,6 +31,11 @@ struct MainViewModel {
         }
     }
     
+    mutating func reloadAllMemos() {
+        memos = realmManager.loadAllNonFixedMemos()
+        fixedMemo = realmManager.loadAllFixedMemos()
+    }
+    
     func deleteMemo(at index: Int) {
         
     }
