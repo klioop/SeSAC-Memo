@@ -18,7 +18,7 @@ struct EditViewModel {
         var memoObject: MemoObject
         
         if titleAndContent.count == 1 {
-          memoObject = MemoObject(title: titleAndContent[0], content: nil, dateWritten: Date(), dateEditted: Date())
+            memoObject = MemoObject(title: titleAndContent[0], content: nil, dateWritten: Date(), dateEditted: Date())
         } else {
             memoObject = MemoObject(title: titleAndContent[0], content: titleAndContent[1], dateWritten: Date(), dateEditted: Date())
         }

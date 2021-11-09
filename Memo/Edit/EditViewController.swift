@@ -23,7 +23,7 @@ class EditViewController: UIViewController {
 
     @IBAction func didTapCompletedButton(_ sender: UIBarButtonItem) {
         if !textViewEditor.text.isEmpty {
-            try? viewModel?.addNewMemo(textViewEditor.text)
+            viewModel?.addNewMemo(textViewEditor.text)
             navigationController?.popViewController(animated: true)
         }
     }

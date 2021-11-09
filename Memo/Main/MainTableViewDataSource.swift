@@ -15,14 +15,18 @@ class MainTableViewDataSource: NSObject {
         case main
     }
     
-    let viewModel: MainViewModel
+    var viewModel: MainViewModel
     
-    private func dequeueAndConfigureCell(from tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { fatalError("Could not find the cell") }
+    private func dequeueAndConfigureCell(
+        from tableView: UITableView,
+        at indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath)
+                as? MainTableViewCell else { fatalError("Could not find the cell") }
         
         var memo: MemoObject
         if indexPath.section == 1 {
-            memo = viewModel.data[indexPath.row]
+            memo = viewModel.memos[indexPath.row]
         } else {
             memo = viewModel.fixedMemo[indexPath.row]
         }
@@ -45,7 +49,7 @@ extension MainTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Section(rawValue: section)?.rawValue == 0 ? viewModel.fixedMemo.count : viewModel.data.count
+        Section(rawValue: section)?.rawValue == 0 ? viewModel.fixedMemo.count : viewModel.memos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

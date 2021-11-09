@@ -124,12 +124,45 @@ extension MainViewController: UITableViewDelegate {
         
         switch indexPath.section {
         case 0:
-            viewModel.memo = dataSource?.viewModel.fixedMemo[indexPath.row]
+            viewModel.memo = dataSource?.viewModel.findFixedMemo(at: indexPath.row)
         default:
-            viewModel.memo = dataSource?.viewModel.data[indexPath.row]
+            viewModel.memo = dataSource?.viewModel.findMemo(at: indexPath.row)
         }
         vc.viewModel = viewModel
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard let dataSource = dataSource else { fatalError("Could not find the data source") }
+        
+        let fixAction = UIContextualAction(
+            style: .normal,
+            title: "",
+            handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+                dataSource.viewModel.fixMemo(at: IndexPath(row: indexPath.row, section: 1).row)
+                dataSource.viewModel.reloadAllMemos()
+            
+                tableView.performBatchUpdates {
+                    tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: 0, section: 0))
+                    
+                } completion: { success in
+                    
+                    tableView.reloadData()
+                }
+
+                success(true)
+            }
+        )
+        fixAction.image = UIImage(systemName: "pin.fill")
+        fixAction.backgroundColor = .systemOrange
+        
+        let configuration = UISwipeActionsConfiguration(actions: [fixAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        
+        return configuration
+    }
+    
     
 }
