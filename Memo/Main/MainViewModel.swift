@@ -26,14 +26,14 @@ struct MainViewModel {
     
     func findMemoNewIndex(of memo: MemoObject) -> Int {
         if memo.isFixed {
-            if let target = fixedMemos.first(where: { $0.dateEditted < memo.dateEditted }) {
-                return (fixedMemos.index(of: target) ?? -1) - 1
+            if let target = fixedMemos.last(where: { $0.dateEditted > memo.dateEditted }) {
+                return (fixedMemos.index(of: target) ?? -1) + 1
             } else {
                 return 0
             }
         } else {
-            if let target = memos.first(where: { $0.dateEditted < memo.dateEditted }) {
-                return (memos.index(of: target) ?? -1) - 1
+            if let target = memos.last(where: { $0.dateEditted > memo.dateEditted }) {
+                return (memos.index(of: target) ?? -1) + 1
             } else {
                 return 0
             }
@@ -45,6 +45,11 @@ struct MainViewModel {
             let memo = findMemo(at: index)
             realmManager.fixMemo(memo)
         }
+    }
+    
+    func unFixMemo(at index: Int) {
+        let memo = findFixedMemo(at: index)
+        realmManager.unFixMemo(memo)
     }
     
     mutating func reloadAllMemos() {

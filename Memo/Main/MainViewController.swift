@@ -136,35 +136,65 @@ extension MainViewController: UITableViewDelegate {
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         guard let dataSource = dataSource else { fatalError("Could not find the data source") }
+        var swipeAction: UIContextualAction
         
-        let fixAction = UIContextualAction(
-            style: .normal,
-            title: "",
-            handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
-                let memo = dataSource.viewModel.findMemo(at: IndexPath(row: indexPath.row, section: 1).row)
-                dataSource.viewModel.fixMemo(at: IndexPath(row: indexPath.row, section: 1).row)
-                dataSource.viewModel.reloadAllMemos()
-            
-                tableView.performBatchUpdates {
-                    let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
-                    tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
-                    
-                } completion: { success in
-                    
-                    tableView.reloadData()
-                }
-
-                success(true)
-            }
-        )
-        fixAction.image = UIImage(systemName: "pin.fill")
-        fixAction.backgroundColor = .systemOrange
+        if indexPath.section == 1 {
+            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, with: dataSource, isFixAction: true)
+        } else {
+            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, with: dataSource, isFixAction: false)
+        }
+        swipeAction.image = indexPath.section == 1 ? UIImage(systemName: "pin.fill") : UIImage(systemName: "pin.slash.fill")
+        swipeAction.backgroundColor = .systemOrange
         
-        let configuration = UISwipeActionsConfiguration(actions: [fixAction])
+        let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
         configuration.performsFirstActionWithFullSwipe = false
         
         return configuration
     }
+    
+    private func createContextualFixOrUnFixAction(
+        from tableView: UITableView,
+        at indexPath: IndexPath,
+        with dataSource: MainTableViewDataSource,
+        isFixAction: Bool
+    ) -> UIContextualAction {
+        return UIContextualAction(
+            style: .normal,
+            title: "",
+            handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+                if isFixAction {
+                    let index = IndexPath(row: indexPath.row, section: 1).row
+                    let memo = dataSource.viewModel.findMemo(at: index)
+                    dataSource.viewModel.fixMemo(at: index)
+                    dataSource.viewModel.reloadAllMemos()
+                
+                    tableView.performBatchUpdates {
+                        let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
+                        tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
+                        
+                    } completion: { _ in
+                        tableView.reloadData()
+                    }
+                    success(true)
+                } else {
+                    let index = IndexPath(row: indexPath.row, section: 0).row
+                    let memo = dataSource.viewModel.findFixedMemo(at: index)
+                    dataSource.viewModel.unFixMemo(at: index)
+                    dataSource.viewModel.reloadAllMemos()
+                    
+                    tableView.performBatchUpdates {
+                        let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
+                        tableView.moveRow(at: IndexPath(row: indexPath.row, section: 0), to: IndexPath(row: toRow, section: 1))
+                    } completion: { _ in
+                        tableView.reloadData()
+                    }
+                    success(true)
+                }
+            }
+        )
+    }
+
+    
     
     
 }
