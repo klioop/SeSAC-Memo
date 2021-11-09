@@ -12,15 +12,6 @@ class MainTableViewDataSource: NSObject {
     enum Section: Int, CaseIterable {
         case fixed
         case main
-        
-        var headerText: String {
-            switch self {
-            case .fixed:
-                return "고정된 메모"
-            case .main:
-                return "메모"
-            }
-        }
     }
     
     let viewModel: MainViewModel

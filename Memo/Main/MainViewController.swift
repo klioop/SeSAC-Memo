@@ -13,6 +13,9 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     
+    @IBAction func addNewMemo(_ sender: UIBarButtonItem) {
+        
+    }
     // MARK: - public
    
     
