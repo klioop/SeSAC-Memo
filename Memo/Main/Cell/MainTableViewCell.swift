@@ -21,13 +21,14 @@ class MainTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        configureOutlets()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    public func configure(for memo: Memo) {
+    public func configure(for memo: MemoObject) {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.locale = .current

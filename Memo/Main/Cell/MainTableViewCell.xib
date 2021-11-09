@@ -23,13 +23,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fe-ki-2gB">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fe-ki-2gB">
                         <rect key="frame" x="20" y="75" width="36" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbV-fd-oSM">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbV-fd-oSM">
                         <rect key="frame" x="76" y="75" width="61" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -46,6 +46,7 @@
                     <constraint firstItem="ZBH-6D-Qnr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="cUw-FH-Iqq"/>
                     <constraint firstItem="9Fe-ki-2gB" firstAttribute="leading" secondItem="ZBH-6D-Qnr" secondAttribute="leading" id="d0o-VS-HPi"/>
                     <constraint firstItem="9Fe-ki-2gB" firstAttribute="top" secondItem="ZBH-6D-Qnr" secondAttribute="bottom" constant="10" id="jPW-AQ-kSz"/>
+                    <constraint firstItem="9Fe-ki-2gB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="naG-Md-m31"/>
                     <constraint firstAttribute="bottom" secondItem="9Fe-ki-2gB" secondAttribute="bottom" constant="10" id="pY7-wn-vsy"/>
                 </constraints>
             </tableViewCellContentView>

@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct MainViewModel {
     
-    var data = Memo.testData
+    let realmManager: PersistanceManager
+    
+    var data: Results<MemoObject>
     
     var fixedMemo: [Memo] = [
         Memo(title: "dd", content: "dd", dateWritten: Date()),
@@ -17,4 +20,11 @@ struct MainViewModel {
     ]
     
     
+}
+
+extension MainViewModel {
+    init(realmManager: PersistanceManager) {
+        self.realmManager = realmManager
+        data = realmManager.loadAllMemos()
+    }
 }

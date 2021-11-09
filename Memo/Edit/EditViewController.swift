@@ -16,12 +16,13 @@ class EditViewController: UIViewController {
     @IBOutlet weak var textViewEditor: UITextView!
     
     @IBAction func didTapShareButton(_ sender: UIBarButtonItem) {
-        
+
     }
-    
-    @IBAction func didTapCompletedButton(_ sender: UIBarButtonItem) throws {
+
+    @IBAction func didTapCompletedButton(_ sender: UIBarButtonItem) {
         if !textViewEditor.text.isEmpty {
             try? viewModel?.addNewMemo(textViewEditor.text)
+            navigationController?.popViewController(animated: true)
         }
     }
     

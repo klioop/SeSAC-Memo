@@ -39,12 +39,12 @@
                         <rightBarButtonItems>
                             <barButtonItem title="완료" id="UEU-rY-PwF">
                                 <connections>
-                                    <action selector="didTapCompletedButton" destination="Y6W-OH-hqX" id="lbM-wj-37Y"/>
+                                    <action selector="didTapCompletedButton:" destination="Y6W-OH-hqX" id="NWO-zv-vUe"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem image="square.and.arrow.up" catalog="system" id="vcR-Qt-qlZ">
                                 <connections>
-                                    <action selector="didTapShareButton" destination="Y6W-OH-hqX" id="eA6-86-pJQ"/>
+                                    <action selector="didTapShareButton:" destination="Y6W-OH-hqX" id="mpy-ht-092"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

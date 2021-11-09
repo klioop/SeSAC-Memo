@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainTableViewDataSource: NSObject {
     
@@ -19,7 +20,7 @@ class MainTableViewDataSource: NSObject {
     private func dequeueAndConfigureCell(from tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { fatalError("Could not find the cell") }
         
-        var memo: Memo
+        var memo: MemoObject
         if indexPath.section == 1 {
             memo = viewModel.data[indexPath.row]
             cell.configure(for: memo)

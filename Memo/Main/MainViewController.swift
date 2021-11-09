@@ -25,8 +25,7 @@ class MainViewController: UIViewController {
     
     // MARK: - public
     
-    let realmManager = PersistanceManager()
-   
+    let realmManager = PersistanceManager.shared
     
     // MARK: - private properties
     
@@ -42,6 +41,15 @@ class MainViewController: UIViewController {
         configureTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        mainTableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     // MARK: - private func
     
     private func configureTableView() {
@@ -50,7 +58,7 @@ class MainViewController: UIViewController {
         mainTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
         mainTableView.register(MainTableHeader.self, forHeaderFooterViewReuseIdentifier: MainTableHeader.headerId)
         mainTableView.delegate = self
-        dataSource = MainTableViewDataSource(viewModel: MainViewModel())
+        dataSource = MainTableViewDataSource(viewModel: .init(realmManager: realmManager))
         mainTableView.dataSource = dataSource
         mainTableView.backgroundColor = UIColor(named: Color.tableViewBackground.rawValue)
     }
