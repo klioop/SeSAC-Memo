@@ -141,11 +141,13 @@ extension MainViewController: UITableViewDelegate {
             style: .normal,
             title: "",
             handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+                let memo = dataSource.viewModel.findMemo(at: IndexPath(row: indexPath.row, section: 1).row)
                 dataSource.viewModel.fixMemo(at: IndexPath(row: indexPath.row, section: 1).row)
                 dataSource.viewModel.reloadAllMemos()
             
                 tableView.performBatchUpdates {
-                    tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: 0, section: 0))
+                    let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
+                    tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
                     
                 } completion: { success in
                     

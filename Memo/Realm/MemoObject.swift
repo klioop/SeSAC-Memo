@@ -15,14 +15,14 @@ class MemoObject: Object {
     @Persisted var title: String
     @Persisted var content: String?
     @Persisted var dateWritten: Date
-    @Persisted var dateEditted: Date?
+    @Persisted var dateEditted: Date
     @Persisted var isFixed: Bool
     
     convenience init(
         title: String,
         content: String?,
         dateWritten: Date,
-        dateEditted: Date?,
+        dateEditted: Date,
         isFixed: Bool = false
     ) {
         self.init()

@@ -28,7 +28,7 @@ class MainTableViewDataSource: NSObject {
         if indexPath.section == 1 {
             memo = viewModel.memos[indexPath.row]
         } else {
-            memo = viewModel.fixedMemo[indexPath.row]
+            memo = viewModel.fixedMemos[indexPath.row]
         }
         cell.configure(for: memo)
         
@@ -49,7 +49,7 @@ extension MainTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        Section(rawValue: section)?.rawValue == 0 ? viewModel.fixedMemo.count : viewModel.memos.count
+        Section(rawValue: section)?.rawValue == 0 ? viewModel.fixedMemos.count : viewModel.memos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
