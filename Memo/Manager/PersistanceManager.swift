@@ -12,10 +12,12 @@ class PersistanceManager {
     
     enum RealmError: Error {
         case faildToCreateMemo
+        case faildToDeleteMemo
         
         var errorMessage: String {
             switch self {
             case .faildToCreateMemo: return "메모 생성에 실패하였습니다."
+            case .faildToDeleteMemo: return "메모 삭제에 실패하였습니다."
             }
         }
     }
@@ -37,6 +39,17 @@ class PersistanceManager {
     
     func loadAllMemos() -> Results<MemoObject>{
         localRealm.objects(MemoObject.self).sorted(byKeyPath: "dateEditted", ascending: false)
+    }
+    
+    func deleteMemo(_ memo: MemoObject) {
+        do {
+            try localRealm.write {
+                localRealm.delete(memo)
+            }
+        } catch {
+            let error = RealmError.faildToDeleteMemo
+            print(error)
+        }
     }
     
     
