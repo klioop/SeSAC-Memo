@@ -31,6 +31,7 @@
 		31C88525273A6ABE004828DB /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31C88524273A6ABE004828DB /* Edit.storyboard */; };
 		31C88527273A6AD3004828DB /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88526273A6AD3004828DB /* EditViewController.swift */; };
 		31C88529273A73BD004828DB /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88528273A73BD004828DB /* EditViewModel.swift */; };
+		31C8852B273A8235004828DB /* String+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8852A273A8235004828DB /* String+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		31C88524273A6ABE004828DB /* Edit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		31C88526273A6AD3004828DB /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		31C88528273A73BD004828DB /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		31C8852A273A8235004828DB /* String+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				31226EEB2739294500C6BAA0 /* UserDefault+extensions.swift */,
+				31C8852A273A8235004828DB /* String+extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */,
 				31226EE52739263600C6BAA0 /* MemoObject.swift in Sources */,
 				31226EEE27392D5000C6BAA0 /* MainTableViewDataSource.swift in Sources */,
+				31C8852B273A8235004828DB /* String+extension.swift in Sources */,
 				31226EE12739248C00C6BAA0 /* Constants.swift in Sources */,
 				31C88527273A6AD3004828DB /* EditViewController.swift in Sources */,
 				31226EF82739436000C6BAA0 /* MainViewModel.swift in Sources */,

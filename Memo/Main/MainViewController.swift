@@ -16,11 +16,16 @@ class MainViewController: UIViewController {
     @IBAction func addNewMemo(_ sender: UIBarButtonItem) {
         let bundle = Bundle(for: EditViewController.self)
         let sb = UIStoryboard(name: "Edit", bundle: bundle)
-        let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
-        navigationController?.pushViewController(vc, animated: true)
+        if let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
+            as? EditViewController {
+            vc.viewModel = .init(persistanceManager: realmManager, isNew: true)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     // MARK: - public
+    
+    let realmManager = PersistanceManager()
    
     
     // MARK: - private properties

@@ -8,10 +8,26 @@
 import Foundation
 
 struct EditViewModel {
+    
     let persistanceManager: PersistanceManager
     
-    func addNewMemo(_ content: String) {
+    var isNew: Bool = true
+    
+    func addNewMemo(_ content: String) throws {
         let memoObject = MemoObject(title: content, content: nil, dateWritten: Date(), dateEditted: Date())
+        try? persistanceManager.addMemo(memoObject)
+    }
+    
+    func editMemo(_ content: String) {
         
+    }
+    
+    private func seperateTitleAndContent(from memo: String) -> [String] {
+        let firstLineBreakIdx = memo.range(of: "\n")
+        if let idx = firstLineBreakIdx {
+            
+        }
+    
+        return []
     }
 }

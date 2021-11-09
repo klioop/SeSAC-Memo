@@ -15,16 +15,17 @@ class EditViewController: UIViewController {
     
     @IBOutlet weak var textViewEditor: UITextView!
     
-    @IBAction func didTapShareButton() {
+    @IBAction func didTapShareButton(_ sender: UIBarButtonItem) {
         
     }
     
-    @IBAction func didTapCompletedButton() {
-        
+    @IBAction func didTapCompletedButton(_ sender: UIBarButtonItem) throws {
+        if !textViewEditor.text.isEmpty {
+            try? viewModel?.addNewMemo(textViewEditor.text)
+        }
     }
     
-    var isNew = true
-    
+    var viewModel: EditViewModel?
     
     // MARK: - life cycle
     
@@ -47,7 +48,9 @@ class EditViewController: UIViewController {
     }
     
     private func configureInitialScene() {
-        if isNew {
+        guard let viewModel = viewModel else { return }
+        
+        if viewModel.isNew {
             textViewEditor.text = ""
             textViewEditor.becomeFirstResponder()
         }
