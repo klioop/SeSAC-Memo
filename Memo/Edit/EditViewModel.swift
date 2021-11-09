@@ -11,7 +11,7 @@ struct EditViewModel {
     
     let persistanceManager: PersistanceManager
     
-    var isNew: Bool = true
+    var memo: MemoObject?
     
     func addNewMemo(_ memo: String) throws {
         let titleAndContent = seperateTitleAndContent(from: memo)

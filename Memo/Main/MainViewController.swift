@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
         let sb = UIStoryboard(name: "Edit", bundle: bundle)
         if let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
             as? EditViewController {
-            vc.viewModel = .init(persistanceManager: realmManager, isNew: true)
+            vc.viewModel = .init(persistanceManager: realmManager)
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -106,13 +106,29 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableHeader.headerId)
                 as? MainTableHeader else { fatalError("could not find the header")}
-        if section == 0 {
-            header.configure(with: .init(memoType: .fixed))
-        } else {
-            header.configure(with: .init(memoType: .normal))
-        }
+        
+        section == 0 ? header.configure(with: .init(memoType: .fixed)) :
+        header.configure(with: .init(memoType: .normal))
         
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let bundle = Bundle(for: EditViewController.self)
+        let sb = UIStoryboard(name: "Edit", bundle: bundle)
+        guard let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
+                as? EditViewController else { fatalError("Could not find the ViewController") }
+        var viewModel = EditViewModel(persistanceManager: realmManager)
+        
+        switch indexPath.section {
+        case 0:
+            viewModel.memo = dataSource?.viewModel.fixedMemo[indexPath.row]
+        default:
+            viewModel.memo = dataSource?.viewModel.data[indexPath.row]
+        }
+        vc.viewModel = viewModel
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -14,9 +14,9 @@ struct MainViewModel {
     
     var data: Results<MemoObject>
     
-    var fixedMemo: [Memo] = [
-        Memo(title: "dd", content: "dd", dateWritten: Date()),
-        Memo(title: "dd", content: "dd", dateWritten: Date())
+    var fixedMemo: [MemoObject] = [
+        MemoObject(title: "dd", content: nil, dateWritten: Date(), dateEditted: Date()),
+        MemoObject(title: "Hello, world", content: nil, dateWritten: Date(), dateEditted: Date())
     ]
     
     

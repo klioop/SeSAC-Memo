@@ -36,7 +36,7 @@ class PersistanceManager {
     }
     
     func loadAllMemos() -> Results<MemoObject>{
-        localRealm.objects(MemoObject.self)
+        localRealm.objects(MemoObject.self).sorted(byKeyPath: "dateEditted", ascending: false)
     }
     
     

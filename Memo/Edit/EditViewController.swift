@@ -51,7 +51,7 @@ class EditViewController: UIViewController {
     private func configureInitialScene() {
         guard let viewModel = viewModel else { return }
         
-        if viewModel.isNew {
+        if viewModel.memo == nil {
             textViewEditor.text = ""
             textViewEditor.becomeFirstResponder()
         }
