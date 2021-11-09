@@ -19,10 +19,19 @@ struct MainViewModel {
         MemoObject(title: "Hello, world", content: nil, dateWritten: Date(), dateEditted: Date())
     ]
     
+    func findFixedMemo(at index: Int) -> MemoObject {
+        fixedMemo[index]
+    }
+    
+    func findMemo(at Index: Int) -> MemoObject {
+        data[index]
+    }
+    
     
 }
 
 extension MainViewModel {
+    
     init(realmManager: PersistanceManager) {
         self.realmManager = realmManager
         data = realmManager.loadAllMemos()

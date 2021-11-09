@@ -15,6 +15,8 @@ class EditViewController: UIViewController {
     
     @IBOutlet weak var textViewEditor: UITextView!
     
+    @IBOutlet weak var completedBarButton: UIBarButtonItem!
+    
     @IBAction func didTapShareButton(_ sender: UIBarButtonItem) {
 
     }
@@ -50,12 +52,14 @@ class EditViewController: UIViewController {
     
     private func configureInitialScene() {
         guard let viewModel = viewModel else { return }
+        completedBarButton.title = "완료"
         
         if viewModel.memo == nil {
             textViewEditor.text = ""
             textViewEditor.becomeFirstResponder()
         } else {
-            textViewEditor.text = "\(viewModel.memo?.title ?? "?")\n\(viewModel.memo?.content ?? "?")"
+            completedBarButton.title = "수정"
+            textViewEditor.text = "\(viewModel.memo?.title ?? "?")\n\(viewModel.memo?.content ?? "")"
         }
     }
 }

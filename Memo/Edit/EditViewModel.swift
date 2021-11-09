@@ -13,7 +13,7 @@ struct EditViewModel {
     
     var memo: MemoObject?
     
-    func addNewMemo(_ memo: String) throws {
+    func addNewMemo(_ memo: String) {
         let titleAndContent = seperateTitleAndContent(from: memo)
         var memoObject: MemoObject
         

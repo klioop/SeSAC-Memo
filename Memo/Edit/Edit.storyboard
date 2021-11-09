@@ -50,6 +50,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="completedBarButton" destination="UEU-rY-PwF" id="6PH-wJ-tuV"/>
                         <outlet property="textViewEditor" destination="jJp-ym-hwH" id="tTy-JJ-CyY"/>
                     </connections>
                 </viewController>
