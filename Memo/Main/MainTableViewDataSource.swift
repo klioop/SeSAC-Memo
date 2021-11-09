@@ -16,7 +16,7 @@ class MainTableViewDataSource: NSObject {
     
     let viewModel: MainViewModel
     
-    private func dequeueAndConfigureCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+    private func dequeueAndConfigureCell(from tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath) as? MainTableViewCell else { fatalError("Could not find the cell") }
         
         var memo: Memo
@@ -46,7 +46,7 @@ extension MainTableViewDataSource: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        dequeueAndConfigureCell(tableView, indexPath: indexPath)
+        dequeueAndConfigureCell(from: tableView, at: indexPath)
     }
     
 }

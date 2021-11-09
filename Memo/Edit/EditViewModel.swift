@@ -13,8 +13,16 @@ struct EditViewModel {
     
     var isNew: Bool = true
     
-    func addNewMemo(_ content: String) throws {
-        let memoObject = MemoObject(title: content, content: nil, dateWritten: Date(), dateEditted: Date())
+    func addNewMemo(_ memo: String) throws {
+        let titleAndContent = seperateTitleAndContent(from: memo)
+        var memoObject: MemoObject
+        
+        if titleAndContent.count == 1 {
+          memoObject = MemoObject(title: titleAndContent[0], content: nil, dateWritten: Date(), dateEditted: Date())
+        } else {
+            memoObject = MemoObject(title: titleAndContent[0], content: titleAndContent[1], dateWritten: Date(), dateEditted: Date())
+        }
+        
         try? persistanceManager.addMemo(memoObject)
     }
     
@@ -23,11 +31,10 @@ struct EditViewModel {
     }
     
     private func seperateTitleAndContent(from memo: String) -> [String] {
-        let firstLineBreakIdx = memo.range(of: "\n")
-        if let idx = firstLineBreakIdx {
-            
+        if memo.split(separator: "\n").count == 1{
+            return [memo]
+        } else {
+            return memo.splitIntoTitleAndContent()
         }
-    
-        return []
     }
 }
