@@ -92,17 +92,27 @@ class MainViewController: UIViewController {
     
 }
 
+extension MainViewController: SearchResultViewControllerDelegate {
+    
+    func didEndSwipeAction() {
+        dataSource?.viewModel.reloadAllMemos()
+        mainTableView.reloadData()
+    }
+}
+
 // MARK: - UISearchResultsUpdating methods
 
 extension MainViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        let searchViewModel = SearchViewModel(realmManager: realmManager, text: searchController.searchBar.text ?? "?")
+        searchController.obscuresBackgroundDuringPresentation = false
+        let searchViewModel = SearchViewModel(realmManager: realmManager, query: searchController.searchBar.text ?? "?")
         if let query = searchController.searchBar.text,
            !query.trimmingCharacters(in: .whitespaces).isEmpty,
            let resultVC = searchController.searchResultsController as? SearchResultViewController {
+            resultVC.delegate = self
             resultVC.viewModel = searchViewModel
-            resultVC.update(with: SearchViewDataSource(viewModel: searchViewModel))
+            resultVC.update()
         }
     }
     
@@ -194,6 +204,7 @@ extension MainViewController: UITableViewDelegate {
                     tableView.performBatchUpdates {
                         tableView.deleteRows(at: [indexPathToUse], with: .automatic)
                     }
+                    handler(true)
                 }
             }
         swipeAction.image = UIImage(systemName: "trash.fill")

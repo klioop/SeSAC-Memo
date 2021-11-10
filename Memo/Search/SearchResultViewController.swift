@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SearchResultViewControllerDelegate: AnyObject {
+    func didEndSwipeAction()
+}
+
 class SearchResultViewController: UIViewController {
     
     static let sbId = "SearchResultViewController"
@@ -15,9 +19,10 @@ class SearchResultViewController: UIViewController {
     
     @IBOutlet weak var resultTableView: UITableView!
     
+    var delegate: SearchResultViewControllerDelegate?
+    
     var viewModel: SearchViewModel?
     
-        
     // MARK: - life cycle
     
     override func viewDidLoad() {
@@ -32,12 +37,11 @@ class SearchResultViewController: UIViewController {
         resultTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
         resultTableView.register(MainTableHeader.self, forHeaderFooterViewReuseIdentifier: MainTableHeader.headerId)
         resultTableView.delegate = self
+        resultTableView.dataSource = self
     }
     
-    func update(with dataSource: SearchViewDataSource) {
-        resultTableView.dataSource = dataSource
+    func update() {
         resultTableView.reloadData()
-        view.layoutIfNeeded()
     }
     
 }
@@ -56,4 +60,70 @@ extension SearchResultViewController: UITableViewDelegate {
 
         return header
     }
+    
+    func tableView(
+        _ tableView: UITableView,
+        leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        guard var viewModel = self.viewModel else { fatalError("could not find the view model") }
+        let memo = viewModel.findMemo(at: indexPath.row)
+        var swipeAction: UIContextualAction
+        
+        if memo.isFixed {
+            swipeAction = UIContextualAction(
+                style: .normal,
+                title: nil) { [weak self] action, view, handler in
+                    viewModel.unfixMemo(memo)
+                    viewModel.reloadMemos()
+                    tableView.reloadData()
+                    self?.delegate?.didEndSwipeAction()
+                    handler(true)
+                }
+            swipeAction.image = UIImage(systemName: "pin.slash.fill")
+        } else {
+            swipeAction = UIContextualAction(
+                style: .normal,
+                title: nil) {  [weak self] action, view, handler in
+                    viewModel.fixMemo(memo)
+                    viewModel.reloadMemos()
+                    tableView.reloadData()
+                    self?.delegate?.didEndSwipeAction()
+                    handler(true)
+                }
+            swipeAction.image = UIImage(systemName: "pin.fill")
+        }
+        swipeAction.backgroundColor = .systemOrange
+        
+        let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        
+        return configuration
+    }
 }
+
+extension SearchResultViewController: UITableViewDataSource {
+    
+    private func dequeueAndConfigureCell(
+        from tableView: UITableView,
+        at indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let viewModel = viewModel else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath)
+                as? MainTableViewCell else { fatalError("Could not find the cell") }
+        let memo = viewModel.memosSearched[indexPath.row]
+        
+        cell.configure(for: memo)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel?.memosSearched.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        dequeueAndConfigureCell(from: tableView, at: indexPath)
+    }
+    
+}
+

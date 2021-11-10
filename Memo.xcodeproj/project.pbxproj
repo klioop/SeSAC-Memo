@@ -30,7 +30,6 @@
 		31998EF3273B9EA00056C562 /* UIViewController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF2273B9EA00056C562 /* UIViewController+extensions.swift */; };
 		31998EF5273BA0A50056C562 /* UIAlertController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF4273BA0A50056C562 /* UIAlertController+extensions.swift */; };
 		31998EF7273BA7F00056C562 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF6273BA7F00056C562 /* SearchViewModel.swift */; };
-		31998EF9273BA8270056C562 /* SearchViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF8273BA8270056C562 /* SearchViewDataSource.swift */; };
 		31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5F3F227396C25001270B3 /* MainTableHeader.swift */; };
 		31C88525273A6ABE004828DB /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31C88524273A6ABE004828DB /* Edit.storyboard */; };
 		31C88527273A6AD3004828DB /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88526273A6AD3004828DB /* EditViewController.swift */; };
@@ -62,7 +61,6 @@
 		31998EF2273B9EA00056C562 /* UIViewController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extensions.swift"; sourceTree = "<group>"; };
 		31998EF4273BA0A50056C562 /* UIAlertController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+extensions.swift"; sourceTree = "<group>"; };
 		31998EF6273BA7F00056C562 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
-		31998EF8273BA8270056C562 /* SearchViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewDataSource.swift; sourceTree = "<group>"; };
 		31C5F3F227396C25001270B3 /* MainTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableHeader.swift; sourceTree = "<group>"; };
 		31C88524273A6ABE004828DB /* Edit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		31C88526273A6AD3004828DB /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				31226EDB2739207300C6BAA0 /* Search.storyboard */,
 				31226EDD2739209F00C6BAA0 /* SearchResultViewController.swift */,
 				31998EF6273BA7F00056C562 /* SearchViewModel.swift */,
-				31998EF8273BA8270056C562 /* SearchViewDataSource.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -304,7 +301,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31998EF5273BA0A50056C562 /* UIAlertController+extensions.swift in Sources */,
-				31998EF9273BA8270056C562 /* SearchViewDataSource.swift in Sources */,
 				31C88529273A73BD004828DB /* EditViewModel.swift in Sources */,
 				31226EEC2739294500C6BAA0 /* UserDefault+extensions.swift in Sources */,
 				31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */,
