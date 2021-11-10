@@ -102,10 +102,9 @@ extension MainViewController: SearchResultViewControllerDelegate {
 
 // MARK: - UISearchResultsUpdating methods
 
-extension MainViewController: UISearchResultsUpdating {
+extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
-        searchController.obscuresBackgroundDuringPresentation = false
         let searchViewModel = SearchViewModel(realmManager: realmManager, query: searchController.searchBar.text ?? "?")
         if let query = searchController.searchBar.text,
            !query.trimmingCharacters(in: .whitespaces).isEmpty,
@@ -116,7 +115,13 @@ extension MainViewController: UISearchResultsUpdating {
         }
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    
 }
+
 
 // MARK: - tableView delegate methods
 
