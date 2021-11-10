@@ -57,8 +57,8 @@ struct MainViewModel {
         fixedMemos = realmManager.loadAllFixedMemos()
     }
     
-    func deleteMemo(at index: Int) {
-        
+    mutating func deleteMemo(_ memo: MemoObject) {
+        realmManager.deleteMemo(memo)
     }
     
     

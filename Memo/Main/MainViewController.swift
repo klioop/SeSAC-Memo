@@ -152,6 +152,42 @@ extension MainViewController: UITableViewDelegate {
         return configuration
     }
     
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        let swipeAction = UIContextualAction(
+            style: .normal,
+            title: nil) { [unowned self] action, UIView, handler in
+                guard let dataSource = self.dataSource else { fatalError("Could not find the data source")}
+                var memo: MemoObject
+                var indexPathToUse: IndexPath
+                
+                if indexPath.section == 0 {
+                    indexPathToUse = IndexPath(row: indexPath.row, section: 0)
+                    memo = dataSource.viewModel.findFixedMemo(at: indexPathToUse.row)
+                } else {
+                    indexPathToUse = IndexPath(row: indexPath.row, section: 1)
+                    memo = dataSource.viewModel.findMemo(at: indexPathToUse.row)
+                }
+                dataSource.viewModel.deleteMemo(memo)
+                dataSource.viewModel.reloadAllMemos()
+                
+                tableView.performBatchUpdates {
+                    tableView.deleteRows(at: [indexPathToUse], with: .automatic)
+                } completion: { _ in
+                    
+                }
+            }
+        swipeAction.image = UIImage(systemName: "trash.fill")
+        swipeAction.backgroundColor = .systemRed
+        
+        let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        
+        return configuration
+    }
+    
     private func createContextualFixOrUnFixAction(
         from tableView: UITableView,
         at indexPath: IndexPath,
