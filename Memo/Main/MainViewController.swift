@@ -185,16 +185,11 @@ extension MainViewController: UITableViewDelegate {
                     
                     tableView.performBatchUpdates {
                         tableView.deleteRows(at: [indexPathToUse], with: .automatic)
-                    } completion: { _ in
-                        
                     }
                 }
             }
-        
-        
         swipeAction.image = UIImage(systemName: "trash.fill")
         swipeAction.backgroundColor = .systemRed
-        
         
         let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
         configuration.performsFirstActionWithFullSwipe = false

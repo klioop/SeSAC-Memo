@@ -22,7 +22,6 @@ struct EditViewModel {
         } else {
             memoObject = MemoObject(title: titleAndContent[0], content: titleAndContent[1], dateWritten: Date(), dateEditted: Date())
         }
-        
         try? persistanceManager.addMemo(memoObject)
     }
     
