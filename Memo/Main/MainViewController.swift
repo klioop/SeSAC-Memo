@@ -90,6 +90,8 @@ class MainViewController: UIViewController {
     
 }
 
+// MARK: - UISearchResultsUpdating methods
+
 extension MainViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
@@ -97,6 +99,8 @@ extension MainViewController: UISearchResultsUpdating {
     }
     
 }
+
+// MARK: - tableView delegate methods
 
 extension MainViewController: UITableViewDelegate {
     
@@ -156,31 +160,41 @@ extension MainViewController: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        let swipeAction = UIContextualAction(
+        var swipeAction: UIContextualAction
+        swipeAction = UIContextualAction(
             style: .normal,
             title: nil) { [unowned self] action, UIView, handler in
-                guard let dataSource = self.dataSource else { fatalError("Could not find the data source")}
-                var memo: MemoObject
-                var indexPathToUse: IndexPath
-                
-                if indexPath.section == 0 {
-                    indexPathToUse = IndexPath(row: indexPath.row, section: 0)
-                    memo = dataSource.viewModel.findFixedMemo(at: indexPathToUse.row)
-                } else {
-                    indexPathToUse = IndexPath(row: indexPath.row, section: 1)
-                    memo = dataSource.viewModel.findMemo(at: indexPathToUse.row)
-                }
-                dataSource.viewModel.deleteMemo(memo)
-                dataSource.viewModel.reloadAllMemos()
-                
-                tableView.performBatchUpdates {
-                    tableView.deleteRows(at: [indexPathToUse], with: .automatic)
-                } completion: { _ in
+                self.showDestructiveAlert(
+                    title: "메모 삭제",
+                    message: "정말로 메모를 삭제하시겠습니까?😱",
+                    destructionTitle: "삭제"
+                ) {
+                    guard let dataSource = self.dataSource else { fatalError("Could not find the data source")}
+                    var memo: MemoObject
+                    var indexPathToUse: IndexPath
                     
+                    if indexPath.section == 0 {
+                        indexPathToUse = IndexPath(row: indexPath.row, section: 0)
+                        memo = dataSource.viewModel.findFixedMemo(at: indexPathToUse.row)
+                    } else {
+                        indexPathToUse = IndexPath(row: indexPath.row, section: 1)
+                        memo = dataSource.viewModel.findMemo(at: indexPathToUse.row)
+                    }
+                    dataSource.viewModel.deleteMemo(memo)
+                    dataSource.viewModel.reloadAllMemos()
+                    
+                    tableView.performBatchUpdates {
+                        tableView.deleteRows(at: [indexPathToUse], with: .automatic)
+                    } completion: { _ in
+                        
+                    }
                 }
             }
+        
+        
         swipeAction.image = UIImage(systemName: "trash.fill")
         swipeAction.backgroundColor = .systemRed
+        
         
         let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
         configuration.performsFirstActionWithFullSwipe = false

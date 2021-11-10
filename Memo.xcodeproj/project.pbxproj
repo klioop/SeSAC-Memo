@@ -27,6 +27,8 @@
 		31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */; };
 		31226EF62739399C00C6BAA0 /* MainTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */; };
 		31226EF82739436000C6BAA0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31226EF72739436000C6BAA0 /* MainViewModel.swift */; };
+		31998EF3273B9EA00056C562 /* UIViewController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF2273B9EA00056C562 /* UIViewController+extensions.swift */; };
+		31998EF5273BA0A50056C562 /* UIAlertController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31998EF4273BA0A50056C562 /* UIAlertController+extensions.swift */; };
 		31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C5F3F227396C25001270B3 /* MainTableHeader.swift */; };
 		31C88525273A6ABE004828DB /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31C88524273A6ABE004828DB /* Edit.storyboard */; };
 		31C88527273A6AD3004828DB /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C88526273A6AD3004828DB /* EditViewController.swift */; };
@@ -55,6 +57,8 @@
 		31226EF32739399B00C6BAA0 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		31226EF42739399B00C6BAA0 /* MainTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTableViewCell.xib; sourceTree = "<group>"; };
 		31226EF72739436000C6BAA0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		31998EF2273B9EA00056C562 /* UIViewController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extensions.swift"; sourceTree = "<group>"; };
+		31998EF4273BA0A50056C562 /* UIAlertController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+extensions.swift"; sourceTree = "<group>"; };
 		31C5F3F227396C25001270B3 /* MainTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableHeader.swift; sourceTree = "<group>"; };
 		31C88524273A6ABE004828DB /* Edit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		31C88526273A6AD3004828DB /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 			children = (
 				31226EEB2739294500C6BAA0 /* UserDefault+extensions.swift */,
 				31C8852A273A8235004828DB /* String+extension.swift */,
+				31998EF2273B9EA00056C562 /* UIViewController+extensions.swift */,
+				31998EF4273BA0A50056C562 /* UIAlertController+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +297,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31998EF5273BA0A50056C562 /* UIAlertController+extensions.swift in Sources */,
 				31C88529273A73BD004828DB /* EditViewModel.swift in Sources */,
 				31226EEC2739294500C6BAA0 /* UserDefault+extensions.swift in Sources */,
 				31226EE92739291A00C6BAA0 /* UserDefaultWrapper.swift in Sources */,
@@ -307,6 +314,7 @@
 				31226EC02739133800C6BAA0 /* SceneDelegate.swift in Sources */,
 				31226EF52739399B00C6BAA0 /* MainTableViewCell.swift in Sources */,
 				31C5F3F327396C25001270B3 /* MainTableHeader.swift in Sources */,
+				31998EF3273B9EA00056C562 /* UIViewController+extensions.swift in Sources */,
 				31226EE7273927CA00C6BAA0 /* PersistanceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
