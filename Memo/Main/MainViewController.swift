@@ -169,7 +169,7 @@ extension MainViewController: UITableViewDelegate {
                     dataSource.viewModel.reloadAllMemos()
                 
                     tableView.performBatchUpdates {
-                        let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
+                        let toRow = dataSource.viewModel.findNewIndex(of: memo)
                         tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
                         
                     } completion: { _ in
@@ -183,7 +183,7 @@ extension MainViewController: UITableViewDelegate {
                     dataSource.viewModel.reloadAllMemos()
                     
                     tableView.performBatchUpdates {
-                        let toRow = dataSource.viewModel.findMemoNewIndex(of: memo)
+                        let toRow = dataSource.viewModel.findNewIndex(of: memo)
                         tableView.moveRow(at: IndexPath(row: indexPath.row, section: 0), to: IndexPath(row: toRow, section: 1))
                     } completion: { _ in
                         tableView.reloadData()

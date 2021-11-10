@@ -24,7 +24,7 @@ struct MainViewModel {
         memos[index]
     }
     
-    func findMemoNewIndex(of memo: MemoObject) -> Int {
+    func findNewIndex(of memo: MemoObject) -> Int {
         if memo.isFixed {
             if let target = fixedMemos.last(where: { $0.dateEditted > memo.dateEditted }) {
                 return (fixedMemos.index(of: target) ?? -1) + 1
