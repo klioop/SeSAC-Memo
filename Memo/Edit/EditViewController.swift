@@ -43,7 +43,6 @@ class EditViewController: UIViewController {
         super.viewDidAppear(animated)
     }
     
-    
     // MARK: - private func
     
     private func configureTextView() {

@@ -163,19 +163,22 @@ extension MainViewController: UITableViewDelegate {
             title: "",
             handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
                 if isFixAction {
-                    let index = IndexPath(row: indexPath.row, section: 1).row
-                    let memo = dataSource.viewModel.findMemo(at: index)
-                    dataSource.viewModel.fixMemo(at: index)
-                    dataSource.viewModel.reloadAllMemos()
-                
-                    tableView.performBatchUpdates {
-                        let toRow = dataSource.viewModel.findNewIndex(of: memo)
-                        tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
-                        
-                    } completion: { _ in
-                        tableView.reloadData()
+                    if dataSource.viewModel.fixedMemos.count < 5 {
+                        let index = IndexPath(row: indexPath.row, section: 1).row
+                        let memo = dataSource.viewModel.findMemo(at: index)
+                        dataSource.viewModel.fixMemo(at: index)
+                        dataSource.viewModel.reloadAllMemos()
+                    
+                        tableView.performBatchUpdates {
+                            let toRow = dataSource.viewModel.findNewIndex(of: memo)
+                            tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
+                        } completion: { _ in
+                            tableView.reloadData()
+                        }
+                        success(true)
+                    } else {
+                        print("메모는 5개 까지 고정할 수 있어요")
                     }
-                    success(true)
                 } else {
                     let index = IndexPath(row: indexPath.row, section: 0).row
                     let memo = dataSource.viewModel.findFixedMemo(at: index)
