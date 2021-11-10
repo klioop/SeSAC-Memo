@@ -81,7 +81,9 @@ class MainViewController: UIViewController {
     }
     
     private func setUpSearchController() {
-        let resultVC = SearchResultViewController()
+        let bundle = Bundle(for: SearchResultViewController.self)
+        let sb = UIStoryboard(name: "Search", bundle: bundle)
+        let resultVC = sb.instantiateViewController(withIdentifier: SearchResultViewController.sbId)
         let searchVC = UISearchController(searchResultsController: resultVC)
         
         searchVC.searchResultsUpdater = self
@@ -95,7 +97,13 @@ class MainViewController: UIViewController {
 extension MainViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text ?? "Hello")
+        let searchViewModel = SearchViewModel(realmManager: realmManager, text: searchController.searchBar.text ?? "?")
+        if let query = searchController.searchBar.text,
+           !query.trimmingCharacters(in: .whitespaces).isEmpty,
+           let resultVC = searchController.searchResultsController as? SearchResultViewController {
+            resultVC.viewModel = searchViewModel
+            resultVC.update(with: SearchViewDataSource(viewModel: searchViewModel))
+        }
     }
     
 }

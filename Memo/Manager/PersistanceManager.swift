@@ -49,6 +49,10 @@ class PersistanceManager {
         localRealm.objects(MemoObject.self).sorted(byKeyPath: "dateEditted", ascending: false).filter("isFixed == true")
     }
     
+    func loadMemos(with text: String) -> Results<MemoObject> {
+        localRealm.objects(MemoObject.self).filter("title CONTAINS[c] '\(text)'")
+    }
+    
     func fixMemo(_ memo: MemoObject) {
         do {
             try localRealm.write {
