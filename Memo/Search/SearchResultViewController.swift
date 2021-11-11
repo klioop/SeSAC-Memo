@@ -27,6 +27,7 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .secondarySystemBackground
         configureTableView()
     }
@@ -122,6 +123,18 @@ extension SearchResultViewController: UITableViewDelegate {
         configuration.performsFirstActionWithFullSwipe = false
         
         return configuration
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let memo = viewModel?.findMemo(at: indexPath.row) ?? nil
+        let bundle = Bundle(for: EditViewController.self)
+        let sb = UIStoryboard(name: "Edit", bundle: bundle)
+        if let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
+            as? EditViewController {
+            vc.viewModel = .init(persistanceManager: PersistanceManager.shared, memo: memo, isFromSearch: true)
+            self.presentingViewController?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

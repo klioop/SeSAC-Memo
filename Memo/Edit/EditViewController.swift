@@ -30,13 +30,13 @@ class EditViewController: UIViewController {
     
     var viewModel: EditViewModel?
     
+    
     // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextView()
         configureInitialScene()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

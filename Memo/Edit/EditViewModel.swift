@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 struct EditViewModel {
     
     let persistanceManager: PersistanceManager
     
     var memo: MemoObject?
+    
+    var isFromSearch = false
     
     func addNewMemo(_ memo: String) {
         let titleAndContent = seperateTitleAndContent(from: memo)
@@ -26,6 +29,7 @@ struct EditViewModel {
     }
     
     func editMemo(_ content: String) {
+        
         
     }
     
