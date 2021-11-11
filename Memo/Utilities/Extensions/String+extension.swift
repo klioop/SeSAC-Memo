@@ -11,7 +11,7 @@ extension String {
     func splitIntoTitleAndContent() -> [String] {
         var temp = self.split(separator: "\n")
         let title = temp.remove(at: 0)
-        let content = temp.joined(separator: " ")
+        let content = temp.joined(separator: "\n")
         
         return [String(title), String(content)]
     }

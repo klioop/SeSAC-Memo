@@ -24,6 +24,12 @@ struct EditViewModel {
         try? persistanceManager.editMemo(memoObject, with: memo.splitIntoTitleAndContent())
     }
     
+    func isNotEditted(with memo: MemoObject, _ titleAndContent: String) -> Bool {
+        let titleAndContent = titleAndContent.splitIntoTitleAndContent()
+        return titleAndContent.count == 1 ? memo.title == titleAndContent[0] :
+        (memo.title == titleAndContent[0] && memo.content! == titleAndContent[1])        
+    }
+    
     private func createMemoObject(with memo: String) -> MemoObject {
         let titleAndContent = seperateTitleAndContent(from: memo)
         var memoObject: MemoObject

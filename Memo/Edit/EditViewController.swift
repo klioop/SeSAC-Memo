@@ -47,7 +47,7 @@ class EditViewController: UIViewController {
             action: nil
         )
         let backButton = UIButton(type: .system)
-        backButton.setTitle( viewModel!.isFromSearch ? " 검색" : " 메모", for: .normal)
+        backButton.setTitle(viewModel!.isFromSearch ? " 검색" : " 메모", for: .normal)
         backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         backButton.sizeToFit()
@@ -72,24 +72,32 @@ class EditViewController: UIViewController {
     }
     
     private func saveNewOrEdittedMemo() {
-        if let buttons = navigationItem.rightBarButtonItems, buttons[0].title! == "완료" {
+        if let buttons = navigationItem.rightBarButtonItems, buttons[0].title! == "생성" {
             viewModel?.addNewMemo(textViewEditor.text)
         } else {
             if let memoToEdit = viewModel?.memo {
                 viewModel?.editMemo(textViewEditor.text, for: memoToEdit)
             }
         }
-        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func didTapCompletedButton() {
-       saveNewOrEdittedMemo()
+        textViewEditor.endEditing(true)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc
     func didTapBackButton() {
-        textViewEditor.text.isEmpty ? self.popViewController() : saveNewOrEdittedMemo()
+        guard let viewModel = viewModel, let memo = viewModel.memo else { return }
+        
+        if textViewEditor.text.isEmpty || viewModel.isNotEditted(with: memo, textViewEditor.text) {
+            popViewController()
+        } else {
+            textViewEditor.endEditing(true)
+            popViewController()
+        }
+        
     }
     
 }
@@ -97,7 +105,10 @@ class EditViewController: UIViewController {
 extension EditViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        saveNewOrEdittedMemo()
+        guard let viewModel = viewModel, let memo = viewModel.memo else { return }
+        if !viewModel.isNotEditted(with: memo, textViewEditor.text) {
+            saveNewOrEdittedMemo()
+        }
     }
     
     
