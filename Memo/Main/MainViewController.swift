@@ -114,13 +114,11 @@ extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
             resultVC.viewModel = searchViewModel
             resultVC.update()
         }
-        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-    
     
 }
 

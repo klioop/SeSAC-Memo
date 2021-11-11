@@ -72,7 +72,7 @@ class PersistanceManager {
     }
     
     func loadMemos(with text: String) -> Results<MemoObject> {
-        localRealm.objects(MemoObject.self).filter("title CONTAINS[c] '\(text)'")
+        localRealm.objects(MemoObject.self).filter("title CONTAINS[c] %@", "\(text)")
     }
     
     func fixMemo(_ memo: MemoObject) {
