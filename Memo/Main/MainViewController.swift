@@ -76,7 +76,7 @@ class MainViewController: UIViewController {
             )
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.frame.width - 20, height: titleView.frame.height))
         label.text = "1,234 개의 메모"
-        label.font = .systemFont(ofSize: 40, weight: .bold)
+        label.font = .systemFont(ofSize: 35, weight: .bold)
         titleView.addSubview(label)
         navigationItem.titleView = titleView
     }
@@ -114,6 +114,7 @@ extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
             resultVC.viewModel = searchViewModel
             resultVC.update()
         }
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -127,6 +128,7 @@ extension MainViewController: UISearchResultsUpdating, UISearchBarDelegate {
 // MARK: - tableView delegate methods
 
 extension MainViewController: UITableViewDelegate {
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         MainTableHeader.preferredHeight

@@ -28,14 +28,38 @@ class MainTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func configure(for memo: MemoObject) {
+    public func configure(for memo: MemoObject, with query: String = "") {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
         formatter.locale = .current
         
-        titleLabel.text = memo.title
+        if query.isEmpty {
+            contentLabel.text = memo.content
+            titleLabel.text = memo.title
+        } else {
+            let texts = attributedLabelTextGenerator(title: memo.title, content: memo.content ?? "", query: query)
+            titleLabel.attributedText = texts[0]
+            contentLabel.attributedText = texts[1]
+        }        
         dateLabel.text = formatter.string(from: memo.dateWritten)
-        contentLabel.text = memo.content
+    }
+    
+    func attributedLabelTextGenerator(title: String, content: String, query: String) -> [NSMutableAttributedString] {
+        let attributedTitle = NSMutableAttributedString(string: title, attributes: nil)
+        let attributedContent = NSMutableAttributedString(string: content, attributes: nil)
+        let nsRangesOfTitle = title.rangesOf(string: query)
+        
+        nsRangesOfTitle.forEach {
+            attributedTitle.addAttributes([.foregroundColor: UIColor.systemOrange], range: $0)
+        }
+        
+        if !content.isEmpty {
+            let nsRangesOfContent = content.rangesOf(string: query)
+            nsRangesOfContent.forEach {
+                attributedContent.addAttributes([.foregroundColor: UIColor.systemOrange], range: $0)
+            }
+        }
+        return [attributedTitle, attributedContent]
     }
     
     // MARK: - private func

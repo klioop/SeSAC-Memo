@@ -15,4 +15,19 @@ extension String {
         
         return [String(title), String(content)]
     }
+    
+    func rangesOf(string: String) -> [NSRange] {
+        var ranges = [NSRange]()
+        var searchStartIndex = self.startIndex
+        
+        while searchStartIndex < self.endIndex,
+              let range = self.range(of: string, options: .caseInsensitive, range: searchStartIndex..<self.endIndex),
+              !range.isEmpty {
+            ranges.append(NSRange(range, in: string))
+            searchStartIndex = range.upperBound
+        }
+        return ranges
+    }
+    
 }
+

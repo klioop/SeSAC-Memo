@@ -31,6 +31,7 @@
                                             <action selector="addNewMemo:" destination="BYZ-38-t0r" id="Kjn-MF-n2f"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="qRu-BG-eua"/>
                                 </items>
                             </toolbar>
                         </subviews>

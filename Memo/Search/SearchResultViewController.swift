@@ -32,6 +32,12 @@ class SearchResultViewController: UIViewController {
         configureTableView()
     }
     
+    func update() {
+        resultTableView.reloadData()
+    }
+    
+    // MARK: - private
+    
     private func configureTableView() {
         let bundle = Bundle(for: MainTableViewCell.self)
         let nib = UINib(nibName: MainTableViewCell.cellId, bundle: bundle)
@@ -41,11 +47,24 @@ class SearchResultViewController: UIViewController {
         resultTableView.dataSource = self
     }
     
-    func update() {
-        resultTableView.reloadData()
+    private func dequeueAndConfigureCell(
+        from tableView: UITableView,
+        at indexPath: IndexPath,
+        with query: String
+    ) -> UITableViewCell {
+        guard let viewModel = viewModel else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath)
+                as? MainTableViewCell else { fatalError("Could not find the cell") }
+        let memo = viewModel.memosSearched[indexPath.row]
+        
+        cell.configure(for: memo, with: viewModel.query)
+        
+        return cell
     }
     
 }
+
+// MARK: - tableView delegate
 
 extension SearchResultViewController: UITableViewDelegate {
     
@@ -138,28 +157,16 @@ extension SearchResultViewController: UITableViewDelegate {
     }
 }
 
+// MARK: - tableView dataSource
+
 extension SearchResultViewController: UITableViewDataSource {
-    
-    private func dequeueAndConfigureCell(
-        from tableView: UITableView,
-        at indexPath: IndexPath
-    ) -> UITableViewCell {
-        guard let viewModel = viewModel else { fatalError() }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.cellId, for: indexPath)
-                as? MainTableViewCell else { fatalError("Could not find the cell") }
-        let memo = viewModel.memosSearched[indexPath.row]
-        
-        cell.configure(for: memo)
-        
-        return cell
-    }
-    
+           
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel?.memosSearched.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        dequeueAndConfigureCell(from: tableView, at: indexPath)
+        dequeueAndConfigureCell(from: tableView, at: indexPath, with: viewModel?.query ?? "")
     }
     
 }
