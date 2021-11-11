@@ -25,6 +25,7 @@ class EditViewController: UIViewController {
         configureTextView()
         configureButtons()
         configureInitialScene()
+        addSwipeGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,6 +80,24 @@ class EditViewController: UIViewController {
             if let memoToEdit = viewModel?.memo {
                 viewModel?.editMemo(textViewEditor.text, for: memoToEdit)
             }
+        }
+    }
+    
+    func addSwipeGesture() {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(swipeGestureRecognizer)
+    }
+    
+    @objc
+    private func swipeAction(recongnizedBy recognizer: UISwipeGestureRecognizer) {
+        recognizer.direction = .right
+        switch recognizer.state {
+        case .ended:
+            textViewEditor.endEditing(true)
+            popViewController()
+        default:
+            return
         }
     }
     

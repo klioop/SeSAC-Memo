@@ -27,7 +27,7 @@ struct EditViewModel {
     func isNotEditted(with memo: MemoObject, _ titleAndContent: String) -> Bool {        
         let titleAndContent = titleAndContent.splitIntoTitleAndContent()
         return titleAndContent.count == 1 ? memo.title == titleAndContent[0] :
-        (memo.title == titleAndContent[0] && memo.content! == titleAndContent[1])        
+        (memo.title == titleAndContent[0] && (memo.content ?? "") == titleAndContent[1])
     }
     
     private func createMemoObject(with memo: String) -> MemoObject {
