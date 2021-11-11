@@ -84,20 +84,13 @@ class EditViewController: UIViewController {
     @objc
     func didTapCompletedButton() {
         textViewEditor.endEditing(true)
-        navigationController?.popViewController(animated: true)
+        popViewController()
     }
     
     @objc
     func didTapBackButton() {
-        guard let viewModel = viewModel, let memo = viewModel.memo else { return }
-        
-        if textViewEditor.text.isEmpty || viewModel.isNotEditted(with: memo, textViewEditor.text) {
-            popViewController()
-        } else {
-            textViewEditor.endEditing(true)
-            popViewController()
-        }
-        
+        textViewEditor.endEditing(true)
+        popViewController()
     }
     
 }
@@ -105,11 +98,15 @@ class EditViewController: UIViewController {
 extension EditViewController: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        guard let viewModel = viewModel, let memo = viewModel.memo else { return }
-        if !viewModel.isNotEditted(with: memo, textViewEditor.text) {
+        guard let viewModel = viewModel else { return }
+        
+        if textViewEditor.text.isEmpty {
+            return
+        } else if let memo = viewModel.memo, viewModel.isNotEditted(with: memo, textViewEditor.text) {
+            return
+        } else {
             saveNewOrEdittedMemo()
         }
     }
-    
-    
+
 }
