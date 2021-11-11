@@ -15,6 +15,7 @@ class PersistanceManager {
         case failedToDeleteMemo
         case failedToFixMemo
         case failedToUnFixMemo
+        case failedToEdit
         
         var errorMessage: String {
             switch self {
@@ -22,6 +23,7 @@ class PersistanceManager {
             case .failedToDeleteMemo: return "메모 삭제에 실패하였습니다."
             case .failedToFixMemo: return "메모 고정 실패"
             case .failedToUnFixMemo: return "메모 고정 해제 실패"
+            case .failedToEdit: return "메모 수정 실패"
             }
         }
     }
@@ -37,6 +39,26 @@ class PersistanceManager {
             }
         } catch {
             let error = RealmError.failedToCreateMemo
+            print(error.errorMessage)
+        }
+    }
+    
+    func editMemo(_ memo: MemoObject, with titleAndContent: [String]) throws {
+        do {
+            let memoToEdit = localRealm.objects(MemoObject.self).first(where: {$0._id == memo._id })!
+            try localRealm.write {
+                if titleAndContent.count == 1 {
+                    memoToEdit.setValue(titleAndContent[0], forKey: "title")
+                } else {
+                    memoToEdit.setValue(titleAndContent[0], forKey: "title")
+                    memoToEdit.setValue(titleAndContent[1], forKey: "content")
+                    memoToEdit.setValue(Date(), forKey: "dateEditted")
+                }
+                localRealm.add(memoToEdit, update: .modified)
+                
+            }
+        } catch {
+            let error: RealmError = .failedToEdit
             print(error.errorMessage)
         }
     }

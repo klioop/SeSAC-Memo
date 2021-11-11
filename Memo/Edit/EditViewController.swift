@@ -22,10 +22,7 @@ class EditViewController: UIViewController {
     }
 
     @IBAction func didTapCompletedButton(_ sender: UIBarButtonItem) {
-        if !textViewEditor.text.isEmpty {
-            viewModel?.addNewMemo(textViewEditor.text)
-            navigationController?.popViewController(animated: true)
-        }
+        
     }
     
     var viewModel: EditViewModel?
@@ -37,6 +34,7 @@ class EditViewController: UIViewController {
         super.viewDidLoad()
         configureTextView()
         configureInitialScene()
+        configureButtons()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +42,22 @@ class EditViewController: UIViewController {
     }
     
     // MARK: - private func
+    
+    private func configureButtons() {
+        let completedButton = UIBarButtonItem(
+            title: textViewEditor.text.isEmpty ? "생성" : "수정",
+            style: .done,
+            target: self,
+            action: #selector(didTapCompletedButton2)
+        )
+        let shareButton = UIBarButtonItem(
+            image: UIImage(systemName: "circle"),
+            style: .plain,
+            target: self,
+            action: nil
+        )
+        navigationItem.rightBarButtonItems = [completedButton, shareButton]
+    }
     
     private func configureTextView() {
         textViewEditor.delegate = self
@@ -60,6 +74,18 @@ class EditViewController: UIViewController {
             completedBarButton.title = "수정"
             textViewEditor.text = "\(viewModel.memo?.title ?? "?")\n\(viewModel.memo?.content ?? "")"
         }
+    }
+    
+    @objc
+    func didTapCompletedButton2() {
+        if let buttons = navigationItem.rightBarButtonItems, buttons[0].title! == "완료" {
+            viewModel?.addNewMemo(textViewEditor.text)
+        } else {
+            if let memoToEdit = viewModel?.memo {
+                viewModel?.editMemo(textViewEditor.text, for: memoToEdit)
+            }
+        }
+        navigationController?.popViewController(animated: true)
     }
 }
 
