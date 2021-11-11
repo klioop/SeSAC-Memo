@@ -23,8 +23,8 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTextView()
-        configureInitialScene()
         configureButtons()
+        configureInitialScene()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +68,7 @@ class EditViewController: UIViewController {
             textViewEditor.becomeFirstResponder()
         } else {
             textViewEditor.text = "\(viewModel.memo?.title ?? "?")\n\(viewModel.memo?.content ?? "")"
+            navigationItem.rightBarButtonItems = []
         }
     }
     
@@ -96,6 +97,10 @@ class EditViewController: UIViewController {
 }
 
 extension EditViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        configureButtons()
+    }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let viewModel = viewModel else { return }
