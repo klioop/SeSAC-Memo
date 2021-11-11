@@ -99,6 +99,30 @@ extension SearchResultViewController: UITableViewDelegate {
         
         return configuration
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard var viewModel = viewModel else { fatalError("Could not find the viewModel") }
+        let swipeAction = UIContextualAction(
+            style: .normal,
+            title: nil
+        ) { [weak self] action, view, handler in
+            let memo = viewModel.findMemo(at: indexPath.row)
+            viewModel.delete(memo)
+            viewModel.reloadMemos()
+            self?.delegate?.didEndSwipeAction()
+            tableView.performBatchUpdates {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+            handler(true)
+        }
+        swipeAction.backgroundColor = .systemRed
+        swipeAction.image = UIImage(systemName: "trash.fill")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        
+        return configuration
+    }
 }
 
 extension SearchResultViewController: UITableViewDataSource {

@@ -32,6 +32,10 @@ struct SearchViewModel {
         memosSearched = realmManager.loadMemos(with: query)
     }
     
+    mutating func delete(_ memo: MemoObject) {
+        realmManager.deleteMemo(memo)
+    }
+    
 }
 
 extension SearchViewModel {
