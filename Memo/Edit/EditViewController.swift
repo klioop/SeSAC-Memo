@@ -96,6 +96,9 @@ class EditViewController: UIViewController {
 
 extension EditViewController: UITextViewDelegate {
     
+    func textViewDidEndEditing(_ textView: UITextView) {
+        saveNewOrEdittedMemo()
+    }
     
     
 }
