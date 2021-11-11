@@ -27,7 +27,6 @@ class SearchResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "검색"
         view.backgroundColor = .secondarySystemBackground
         configureTableView()
     }

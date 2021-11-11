@@ -86,7 +86,6 @@ class MainViewController: UIViewController {
         let sb = UIStoryboard(name: "Search", bundle: bundle)
         let resultVC = sb.instantiateViewController(withIdentifier: SearchResultViewController.sbId)
         let searchVC = UISearchController(searchResultsController: resultVC)
-        
         searchVC.searchResultsUpdater = self
         navigationItem.searchController = searchVC
     }

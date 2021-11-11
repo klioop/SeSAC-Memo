@@ -55,7 +55,6 @@ class PersistanceManager {
                     memoToEdit.setValue(Date(), forKey: "dateEditted")
                 }
                 localRealm.add(memoToEdit, update: .modified)
-                
             }
         } catch {
             let error: RealmError = .failedToEdit
@@ -72,7 +71,7 @@ class PersistanceManager {
     }
     
     func loadMemos(with text: String) -> Results<MemoObject> {
-        localRealm.objects(MemoObject.self).filter("title CONTAINS[c] %@", "\(text)")
+        localRealm.objects(MemoObject.self).filter("title CONTAINS[c] %@ OR content CONTAINS[c] %@", "\(text)", "\(text)")
     }
     
     func fixMemo(_ memo: MemoObject) {
