@@ -44,4 +44,8 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    func popViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }

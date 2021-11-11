@@ -37,20 +37,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="yr9-ze-BMe">
                         <rightBarButtonItems>
-                            <barButtonItem title="완료" id="UEU-rY-PwF">
-                                <connections>
-                                    <action selector="didTapCompletedButton:" destination="Y6W-OH-hqX" id="NWO-zv-vUe"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="square.and.arrow.up" catalog="system" id="vcR-Qt-qlZ">
-                                <connections>
-                                    <action selector="didTapShareButton:" destination="Y6W-OH-hqX" id="mpy-ht-092"/>
-                                </connections>
-                            </barButtonItem>
+                            <barButtonItem title="완료" id="UEU-rY-PwF"/>
+                            <barButtonItem image="square.and.arrow.up" catalog="system" id="vcR-Qt-qlZ"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="completedBarButton" destination="UEU-rY-PwF" id="6PH-wJ-tuV"/>
                         <outlet property="textViewEditor" destination="jJp-ym-hwH" id="tTy-JJ-CyY"/>
                     </connections>
                 </viewController>
