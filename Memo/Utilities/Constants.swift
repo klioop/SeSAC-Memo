@@ -14,4 +14,5 @@ enum Color: String {
 
 struct Days {
     static let day = 3600 * 24
+    static let aWeek = day * 7
 }

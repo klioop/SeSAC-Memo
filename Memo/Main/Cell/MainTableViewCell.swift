@@ -18,6 +18,8 @@ class MainTableViewCell: UITableViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     
     static let cellId = "MainTableViewCell"
+    
+    // MARK: - override
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,10 +31,6 @@ class MainTableViewCell: UITableViewCell {
     }
     
     public func configure(for memo: MemoObject, with query: String = "") {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.locale = .init(identifier: "ko_kr")
-        
         if query.isEmpty {
             contentLabel.text = memo.content
             titleLabel.text = memo.title
@@ -40,11 +38,30 @@ class MainTableViewCell: UITableViewCell {
             let texts = generatorOfAttributedLabelText(title: memo.title, content: memo.content ?? "", query: query)
             titleLabel.attributedText = texts[0]
             contentLabel.attributedText = texts[1]
-        }        
-        dateLabel.text = formatter.string(from: memo.dateWritten)
+        }
+        let dateString = generatorOfDateText(from: memo.dateEditted) ?? "?"
+        dateLabel.text = dateString
     }
     
-    func generatorOfAttributedLabelText(title: String, content: String, query: String) -> [NSMutableAttributedString] {
+    // MARK: - private func
+    
+    private func generatorOfDateText(from date: Date) -> String? {
+        let today = Date()
+        let formatter = DateFormatter()
+        formatter.locale = .init(identifier: "ko_kr")
+        
+        if Calendar.current.isDateInToday(date){
+            return formatter.timeFormatter.string(from: date)
+        }
+        else if Calendar.current.isDateInThisWeek(date) {
+            return formatter.standaloneWeekdaySymbols[Calendar.current.component(.weekday, from: date) - 1]
+        }
+        else {
+            return formatter.prettyDate.string(from: date)
+        }
+    }
+    
+    private func generatorOfAttributedLabelText(title: String, content: String, query: String) -> [NSMutableAttributedString] {
         let attributedTitle = NSMutableAttributedString(string: title, attributes: nil)
         let attributedContent = NSMutableAttributedString(string: content, attributes: nil)
         let nsRangesOfTitle = title.rangesOf(string: query)
