@@ -42,7 +42,7 @@ class EditViewController: UIViewController {
             action: #selector(didTapCompletedButton)
         )
         let shareButton = UIBarButtonItem(
-            image: UIImage(systemName: "circle"),
+            image: UIImage(systemName: "square.and.arrow.up"),
             style: .plain,
             target: self,
             action: nil

@@ -43,6 +43,7 @@ class MainViewController: UIViewController {
         setUpSearchController()
         configureTableView()
         setUpTitleView()
+        onBoardAlert()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,16 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - private func
+    
+    private func onBoardAlert() {
+        if !UserDefaults.hasOnBoarded {
+            let title = "처음오셨군요!\n환영합니다:)"
+            let message = "\n당신만의 메모를 작성하고\n관리해보세요"
+            showOnlyOkAlert(title: title, message: message, okTitle: "확인") {
+                UserDefaults.hasOnBoarded = true
+            }
+        }
+    }
     
     private func configureTableView() {
         let bundle = Bundle(for: MainTableViewCell.self)

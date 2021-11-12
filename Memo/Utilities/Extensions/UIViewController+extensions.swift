@@ -24,6 +24,21 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    func showOnlyOkAlert(title: String, message: String, okTitle: String, okAction: @escaping () -> ()) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let ok = UIAlertAction(title: okTitle, style: .default) { _ in
+            okAction()
+        }
+        alert.addAction(ok)
+        self.present(alert, animated: true)
+    }
+    
+    
     func showDestructiveAlert(
         title: String,
         message: String?,
