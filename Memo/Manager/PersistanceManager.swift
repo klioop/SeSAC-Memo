@@ -62,6 +62,10 @@ class PersistanceManager {
         }
     }
     
+    func loadAllMemos() -> Results<MemoObject> {
+        localRealm.objects(MemoObject.self)
+    }
+    
     func loadAllNonFixedMemos() -> Results<MemoObject> {
         localRealm.objects(MemoObject.self).sorted(byKeyPath: "dateEditted", ascending: false).filter("isFixed == false")
     }
