@@ -27,6 +27,10 @@ class MainViewController: UIViewController {
     
     let realmManager = PersistanceManager.shared
     
+    lazy var viewModel = MainViewModel(realmManager: realmManager) { [unowned self] in
+        self.mainTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+    }
+    
     // MARK: - private properties
     
     private var dataSource: MainTableViewDataSource?
@@ -48,7 +52,7 @@ class MainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        dataSource?.viewModel.reloadAllMemos()
+        viewModel.reloadAllMemos()
         mainTableView.reloadData()
     }
     
@@ -60,7 +64,7 @@ class MainViewController: UIViewController {
         mainTableView.register(nib, forCellReuseIdentifier: MainTableViewCell.cellId)
         mainTableView.register(MainTableHeader.self, forHeaderFooterViewReuseIdentifier: MainTableHeader.headerId)
         mainTableView.delegate = self
-        dataSource = MainTableViewDataSource(viewModel: .init(realmManager: realmManager))
+        dataSource = MainTableViewDataSource(viewModel: viewModel)
         mainTableView.dataSource = dataSource
         mainTableView.backgroundColor = UIColor(named: Color.tableViewBackground.rawValue)
     }
@@ -75,7 +79,7 @@ class MainViewController: UIViewController {
                 )
             )
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.frame.width - 20, height: titleView.frame.height))
-        let numberOfMemos = dataSource?.viewModel.numberOfAllMemos() ?? 0
+        let numberOfMemos = viewModel.numberOfAllMemos()
         let nsNumber = NSNumber(integerLiteral: numberOfMemos)
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
@@ -100,7 +104,7 @@ class MainViewController: UIViewController {
 extension MainViewController: SearchResultViewControllerDelegate {
     
     func didEndSwipeAction() {
-        dataSource?.viewModel.reloadAllMemos()
+        viewModel.reloadAllMemos()
         mainTableView.reloadData()
     }
 }
@@ -139,11 +143,14 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainTableHeader.headerId)
                 as? MainTableHeader else { fatalError("could not find the header")}
+        if section == 0 {
+            let isFull = viewModel.fixedMemos.count == 5
+            header.configure(with: .init(memoType: .fixed, isFull: isFull))
+        } else {
+            header.configure(with: .init(memoType: .normal))
+        }
         
-        section == 0 ? header.configure(with: .init(memoType: .fixed)) :
-        header.configure(with: .init(memoType: .normal))
-        
-        return (dataSource!.viewModel.fixedMemos.count == 0 && section == 0) ? nil : header
+        return (viewModel.fixedMemos.count == 0 && section == 0) ? nil : header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -152,31 +159,31 @@ extension MainViewController: UITableViewDelegate {
         let sb = UIStoryboard(name: "Edit", bundle: bundle)
         guard let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
                 as? EditViewController else { fatalError("Could not find the ViewController") }
-        var viewModel = EditViewModel(persistanceManager: realmManager)
+        var editViewModel = EditViewModel(persistanceManager: realmManager)
         
         switch indexPath.section {
         case 0:
-            viewModel.memo = dataSource?.viewModel.findFixedMemo(at: indexPath.row)
+            editViewModel.memo = self.viewModel.findFixedMemo(at: indexPath.row)
         default:
-            viewModel.memo = dataSource?.viewModel.findMemo(at: indexPath.row)
+            editViewModel.memo = self.viewModel.findMemo(at: indexPath.row)
         }
-        vc.viewModel = viewModel
+        vc.viewModel = editViewModel
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView,
                    leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        guard let dataSource = dataSource else { fatalError("Could not find the data source") }
         var swipeAction: UIContextualAction
         
         if indexPath.section == 1 {
-            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, with: dataSource, isFixAction: true)
+            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, isFixAction: true)
         } else {
-            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, with: dataSource, isFixAction: false)
+            swipeAction = createContextualFixOrUnFixAction(from: tableView, at: indexPath, isFixAction: false)
         }
+        let fixBackgroundColor: UIColor = viewModel.fixedMemos.count == 5 ? .systemRed : .systemOrange
         swipeAction.image = indexPath.section == 1 ? UIImage(systemName: "pin.fill") : UIImage(systemName: "pin.slash.fill")
-        swipeAction.backgroundColor = .systemOrange
+        swipeAction.backgroundColor = indexPath.section == 1 ? fixBackgroundColor : .systemOrange
         
         let configuration = UISwipeActionsConfiguration(actions: [swipeAction])
         configuration.performsFirstActionWithFullSwipe = false
@@ -213,6 +220,8 @@ extension MainViewController: UITableViewDelegate {
                     
                     tableView.performBatchUpdates {
                         tableView.deleteRows(at: [indexPathToUse], with: .automatic)
+                    } completion: { _ in
+                        self.mainTableView.reloadData()
                     }
                     handler(true)
                 }
@@ -229,22 +238,21 @@ extension MainViewController: UITableViewDelegate {
     private func createContextualFixOrUnFixAction(
         from tableView: UITableView,
         at indexPath: IndexPath,
-        with dataSource: MainTableViewDataSource,
         isFixAction: Bool
     ) -> UIContextualAction {
         return UIContextualAction(
             style: .normal,
             title: "",
-            handler: { (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+            handler: { [unowned self] (action: UIContextualAction, view: UIView, success: (Bool) -> Void) in
                 if isFixAction {
-                    if dataSource.viewModel.fixedMemos.count < 5 {
+                    if self.viewModel.fixedMemos.count < 5 {
                         let index = IndexPath(row: indexPath.row, section: 1).row
-                        let memo = dataSource.viewModel.findMemo(at: index)
-                        dataSource.viewModel.fixMemo(at: index)
-                        dataSource.viewModel.reloadAllMemos()
+                        let memo = self.viewModel.findMemo(at: index)
+                        self.viewModel.fixMemo(at: index)
+                        self.viewModel.reloadAllMemos()
                     
                         tableView.performBatchUpdates {
-                            let toRow = dataSource.viewModel.findNewIndex(of: memo)
+                            let toRow = self.viewModel.findNewIndex(of: memo)
                             tableView.moveRow(at: IndexPath(row: indexPath.row, section: 1), to: IndexPath(row: toRow, section: 0))
                         } completion: { _ in
                             tableView.reloadData()
@@ -255,12 +263,12 @@ extension MainViewController: UITableViewDelegate {
                     }
                 } else {
                     let index = IndexPath(row: indexPath.row, section: 0).row
-                    let memo = dataSource.viewModel.findFixedMemo(at: index)
-                    dataSource.viewModel.unFixMemo(at: index)
-                    dataSource.viewModel.reloadAllMemos()
+                    let memo = self.viewModel.findFixedMemo(at: index)
+                    self.viewModel.unFixMemo(at: index)
+                    self.viewModel.reloadAllMemos()
                     
                     tableView.performBatchUpdates {
-                        let toRow = dataSource.viewModel.findNewIndex(of: memo)
+                        let toRow = self.viewModel.findNewIndex(of: memo)
                         tableView.moveRow(at: IndexPath(row: indexPath.row, section: 0), to: IndexPath(row: toRow, section: 1))
                     } completion: { _ in
                         tableView.reloadData()

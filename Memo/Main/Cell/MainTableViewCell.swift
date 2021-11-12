@@ -46,7 +46,6 @@ class MainTableViewCell: UITableViewCell {
     // MARK: - private func
     
     private func generatorOfDateText(from date: Date) -> String? {
-        let today = Date()
         let formatter = DateFormatter()
         formatter.locale = .init(identifier: "ko_kr")
         

@@ -10,11 +10,15 @@ import RealmSwift
 
 struct MainViewModel {
     
+    typealias ActionWhenFixedMemosFull = () -> Void
+    
     let realmManager: PersistanceManager
     
     var memos: Results<MemoObject>
     
     var fixedMemos: Results<MemoObject>
+    
+    var actionWithFixedMemosFull: ActionWhenFixedMemosFull?
     
     func numberOfAllMemos() -> Int{
         memos.count + fixedMemos.count
@@ -70,9 +74,12 @@ struct MainViewModel {
 
 extension MainViewModel {
     
-    init(realmManager: PersistanceManager) {
+    init(realmManager: PersistanceManager, actionWithFixedMemosFull: @escaping ActionWhenFixedMemosFull) {
         self.realmManager = realmManager
+        self.actionWithFixedMemosFull = actionWithFixedMemosFull
+        
         memos = realmManager.loadAllNonFixedMemos()
         fixedMemos = realmManager.loadAllFixedMemos()
+        
     }
 }

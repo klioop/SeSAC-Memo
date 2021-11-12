@@ -16,11 +16,21 @@ class MainTableHeader: UITableViewHeaderFooterView {
 
     struct ViewModel {
         let memoType: `Type`
+        var isFull = false
     }
     
     enum `Type` {
         case fixed
         case normal
+        
+        var heaerTitle: String {
+            switch self {
+            case .normal:
+                return "메모"
+            case .fixed:
+                return "고정된 메모"
+            }
+        }
     }
     
     let titleLabel: UILabel = {
@@ -56,9 +66,10 @@ class MainTableHeader: UITableViewHeaderFooterView {
     public func configure(with viewModel: ViewModel) {
         switch viewModel.memoType {
         case .fixed:
-            titleLabel.text = "고정된 메모"
+            let titleText = viewModel.isFull ? viewModel.memoType.heaerTitle + "(최대)" : viewModel.memoType.heaerTitle
+            titleLabel.text = titleText
         case .normal:
-            titleLabel.text = "메모"
+            titleLabel.text = viewModel.memoType.heaerTitle
         }
     }
     
