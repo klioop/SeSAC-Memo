@@ -35,7 +35,6 @@ struct SearchViewModel {
     mutating func delete(_ memo: MemoObject) {
         realmManager.deleteMemo(memo)
     }
-    
 }
 
 extension SearchViewModel {

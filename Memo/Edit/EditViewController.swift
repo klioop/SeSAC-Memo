@@ -9,6 +9,8 @@ import UIKit
 
 class EditViewController: UIViewController {
     
+    typealias ActionAfterAddingMemo = () -> Void
+    
     static let sbId = "EditViewController"
     
     // MARK: - Interface builder
@@ -17,6 +19,7 @@ class EditViewController: UIViewController {
     
     var viewModel: EditViewModel?
     
+    var completionHandlerToAdd: ActionAfterAddingMemo?
     
     // MARK: - life cycle
     
@@ -25,7 +28,10 @@ class EditViewController: UIViewController {
         configureTextView()
         configureButtons()
         configureInitialScene()
-        addSwipeGesture()
+        
+        if viewModel!.isNew {
+            addSwipeGesture()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -48,8 +54,19 @@ class EditViewController: UIViewController {
             action: nil
         )
         let backButton = UIButton(type: .system)
-        backButton.setTitle(viewModel!.isFromSearch ? " 검색" : " 메모", for: .normal)
-        backButton.setImage(UIImage(systemName: "chevron.backward"), for: .normal)
+        let backButtonImage = viewModel!.isNew ? UIImage(systemName: "x.circle") :
+        UIImage(systemName: "chevron.backward")
+        
+        var backbuttonTitle: String
+        if viewModel!.isNew {
+            backbuttonTitle = ""
+        } else if viewModel!.isFromSearch {
+            backbuttonTitle = " 검색"
+        } else {
+            backbuttonTitle = " 메모"
+        }
+        backButton.setTitle(backbuttonTitle, for: .normal)
+        backButton.setImage(backButtonImage, for: .normal)
         backButton.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
         backButton.sizeToFit()
         
@@ -64,7 +81,7 @@ class EditViewController: UIViewController {
     private func configureInitialScene() {
         guard let viewModel = viewModel else { return }
         
-        if viewModel.memo == nil {
+        if viewModel.isNew {
             textViewEditor.text = ""
             textViewEditor.becomeFirstResponder()
         } else {
@@ -89,6 +106,19 @@ class EditViewController: UIViewController {
         self.view.addGestureRecognizer(swipeGestureRecognizer)
     }
     
+    private func disMissBehavior() {
+        guard let viewModel = viewModel else { return }
+        if viewModel.isNew {
+            dismiss(animated: true) { [weak self] in
+                if let isMemoAdded = self?.textViewEditor.text.isEmpty, !isMemoAdded {
+                    self?.completionHandlerToAdd?()
+                }
+            }
+        } else {
+            popViewController()
+        }
+    }
+    
     // MARK: - objc
     
     @objc
@@ -106,13 +136,13 @@ class EditViewController: UIViewController {
     @objc
     private func didTapCompletedButton() {
         textViewEditor.endEditing(true)
-        popViewController()
+        disMissBehavior()
     }
     
     @objc
     private func didTapBackButton() {
         textViewEditor.endEditing(true)
-        popViewController()
+        disMissBehavior()
     }
     
 }
@@ -126,7 +156,7 @@ extension EditViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         guard let viewModel = viewModel else { return }
         
-        if textViewEditor.text.isEmpty {
+        if textViewEditor.text == "" {
             return
         } else if let memo = viewModel.memo, viewModel.isNotEditted(with: memo, textViewEditor.text) {
             return

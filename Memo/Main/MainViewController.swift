@@ -18,8 +18,13 @@ class MainViewController: UIViewController {
         let sb = UIStoryboard(name: "Edit", bundle: bundle)
         if let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
             as? EditViewController {
-            vc.viewModel = .init(persistanceManager: realmManager)
-            navigationController?.pushViewController(vc, animated: true)
+            vc.viewModel = .init(persistanceManager: realmManager, isNew: true)
+            vc.completionHandlerToAdd = { [unowned self] in
+                self.mainTableView.reloadRows(at: [IndexPath(row: 0, section: 1)], with: .bottom)
+            }
+            let navVc = UINavigationController(rootViewController: vc)
+            navVc.modalPresentationStyle = .fullScreen
+            self.present(navVc, animated: true)
         }
     }
     
@@ -28,7 +33,7 @@ class MainViewController: UIViewController {
     let realmManager = PersistanceManager.shared
     
     lazy var viewModel = MainViewModel(realmManager: realmManager) { [unowned self] in
-        self.mainTableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        
     }
     
     // MARK: - private properties
@@ -43,18 +48,20 @@ class MainViewController: UIViewController {
         setUpSearchController()
         configureTableView()
         setUpTitleView()
+        setTitle()
         onBoardAlert()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.reloadAllMemos()
+        mainTableView.reloadData()
         
+        setTitle()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.reloadAllMemos()
-        mainTableView.reloadData()
     }
     
     // MARK: - private func
@@ -88,16 +95,23 @@ class MainViewController: UIViewController {
                     height: navigationController?.navigationBar.frame.height ?? 100
                 )
             )
-        let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.frame.width - 20, height: titleView.frame.height))
-        let numberOfMemos = viewModel.numberOfAllMemos()
-        let nsNumber = NSNumber(integerLiteral: numberOfMemos)
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        
-        label.text = "\(numberFormatter.string(from: nsNumber) ?? "0") 개의 메모"
-        label.font = .systemFont(ofSize: 35, weight: .bold)
-        titleView.addSubview(label)
+               
         navigationItem.titleView = titleView
+    }
+    
+    private func setTitle() {
+        if let titleView = navigationItem.titleView {
+            titleView.subviews.forEach { $0.removeFromSuperview() }
+            let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.frame.width - 20, height: titleView.frame.height))
+            let numberOfMemos = viewModel.numberOfAllMemos()
+            let nsNumber = NSNumber(integerLiteral: numberOfMemos)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .decimal
+            
+            label.text = "\(numberFormatter.string(from: nsNumber) ?? "0") 개의 메모"
+            label.font = .systemFont(ofSize: 35, weight: .bold)
+            titleView.addSubview(label)
+        }
     }
     
     private func setUpSearchController() {

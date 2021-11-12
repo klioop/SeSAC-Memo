@@ -150,7 +150,7 @@ extension SearchResultViewController: UITableViewDelegate {
         let sb = UIStoryboard(name: "Edit", bundle: bundle)
         if let vc = sb.instantiateViewController(withIdentifier: EditViewController.sbId)
             as? EditViewController {
-            vc.viewModel = .init(persistanceManager: PersistanceManager.shared, memo: memo, isFromSearch: true)
+            vc.viewModel = .init(persistanceManager: PersistanceManager.shared, memo: memo, isNew: false, isFromSearch: true)
             self.presentingViewController?.navigationController?.pushViewController(vc, animated: true)
         }
     }

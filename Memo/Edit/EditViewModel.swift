@@ -14,6 +14,8 @@ struct EditViewModel {
     
     var memo: MemoObject?
     
+    var isNew = false
+    
     var isFromSearch = false
     
     func addNewMemo(_ memo: String) {

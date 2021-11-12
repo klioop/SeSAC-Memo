@@ -19,7 +19,6 @@ extension UIViewController {
         let ok = UIAlertAction(title: okTitle, style: .default) { _ in
             okAction()
         }
-        
         alert.addActions(cancel, ok)
         self.present(alert, animated: true)
     }
