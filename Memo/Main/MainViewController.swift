@@ -61,9 +61,8 @@ class MainViewController: UIViewController {
     
     private func onBoardAlert() {
         if !UserDefaults.hasOnBoarded {
-            let title = "처음오셨군요!\n환영합니다:)"
-            let message = "\n당신만의 메모를 작성하고\n관리해보세요"
-            showOnlyOkAlert(title: title, message: message, okTitle: "확인") {
+            let title = "처음오셨군요!\n환영합니다:)\n당신만의 메모를 작성하고\n관리해보세요"
+            showOnlyOkAlert(title: title, message: nil, okTitle: "확인") {
                 UserDefaults.hasOnBoarded = true
             }
         }
@@ -161,7 +160,14 @@ extension MainViewController: UITableViewDelegate {
             header.configure(with: .init(memoType: .normal))
         }
         
-        return (viewModel.fixedMemos.count == 0 && section == 0) ? nil : header
+        if viewModel.numberOfAllMemos() == 0 {
+            return nil
+        } else if viewModel.fixedMemos.count == 0 && section == 0 {
+            return nil
+        } else if viewModel.memos.count == 0 && section == 1 {
+            return nil
+        }
+        return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

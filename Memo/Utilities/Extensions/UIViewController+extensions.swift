@@ -24,7 +24,7 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func showOnlyOkAlert(title: String, message: String, okTitle: String, okAction: @escaping () -> ()) {
+    func showOnlyOkAlert(title: String, message: String?, okTitle: String, okAction: @escaping () -> ()) {
         let alert = UIAlertController(
             title: title,
             message: message,
