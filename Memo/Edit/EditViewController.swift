@@ -83,11 +83,13 @@ class EditViewController: UIViewController {
         }
     }
     
-    func addSwipeGesture() {
+    private func addSwipeGesture() {
         let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction))
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(swipeGestureRecognizer)
     }
+    
+    // MARK: - objc
     
     @objc
     private func swipeAction(recongnizedBy recognizer: UISwipeGestureRecognizer) {
@@ -102,13 +104,13 @@ class EditViewController: UIViewController {
     }
     
     @objc
-    func didTapCompletedButton() {
+    private func didTapCompletedButton() {
         textViewEditor.endEditing(true)
         popViewController()
     }
     
     @objc
-    func didTapBackButton() {
+    private func didTapBackButton() {
         textViewEditor.endEditing(true)
         popViewController()
     }

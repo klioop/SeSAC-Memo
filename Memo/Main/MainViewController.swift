@@ -138,7 +138,7 @@ extension MainViewController: UITableViewDelegate {
         section == 0 ? header.configure(with: .init(memoType: .fixed)) :
         header.configure(with: .init(memoType: .normal))
         
-        return header
+        return (dataSource!.viewModel.fixedMemos.count == 0 && section == 0) ? nil : header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
