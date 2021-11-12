@@ -29,7 +29,7 @@ class EditViewController: UIViewController {
         configureButtons()
         configureInitialScene()
         
-        if viewModel!.isNew {
+        if !viewModel!.isNew {
             addSwipeGesture()
         }
     }
