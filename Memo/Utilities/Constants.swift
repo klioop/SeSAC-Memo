@@ -11,3 +11,7 @@ enum Color: String {
     case mainBackGround = "background1"
     case tableViewBackground = "background2"
 }
+
+struct Days {
+    static let day = 3600 * 24
+}

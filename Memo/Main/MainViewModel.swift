@@ -16,6 +16,10 @@ struct MainViewModel {
     
     var fixedMemos: Results<MemoObject>
     
+    func numberOfAllMemos() -> Int{
+        memos.count + fixedMemos.count
+    }
+    
     func findFixedMemo(at index: Int) -> MemoObject {
         fixedMemos[index]
     }

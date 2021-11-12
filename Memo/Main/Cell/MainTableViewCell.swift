@@ -31,20 +31,20 @@ class MainTableViewCell: UITableViewCell {
     public func configure(for memo: MemoObject, with query: String = "") {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
-        formatter.locale = .current
+        formatter.locale = .init(identifier: "ko_kr")
         
         if query.isEmpty {
             contentLabel.text = memo.content
             titleLabel.text = memo.title
         } else {
-            let texts = attributedLabelTextGenerator(title: memo.title, content: memo.content ?? "", query: query)
+            let texts = generatorOfAttributedLabelText(title: memo.title, content: memo.content ?? "", query: query)
             titleLabel.attributedText = texts[0]
             contentLabel.attributedText = texts[1]
         }        
         dateLabel.text = formatter.string(from: memo.dateWritten)
     }
     
-    func attributedLabelTextGenerator(title: String, content: String, query: String) -> [NSMutableAttributedString] {
+    func generatorOfAttributedLabelText(title: String, content: String, query: String) -> [NSMutableAttributedString] {
         let attributedTitle = NSMutableAttributedString(string: title, attributes: nil)
         let attributedContent = NSMutableAttributedString(string: content, attributes: nil)
         let nsRangesOfTitle = title.rangesOf(string: query)

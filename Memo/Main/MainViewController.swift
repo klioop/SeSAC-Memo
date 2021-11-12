@@ -36,9 +36,9 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: Color.mainBackGround.rawValue)
-        setUpTitleView()
         setUpSearchController()
         configureTableView()
+        setUpTitleView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +75,12 @@ class MainViewController: UIViewController {
                 )
             )
         let label = UILabel(frame: CGRect(x: 10, y: 0, width: titleView.frame.width - 20, height: titleView.frame.height))
-        label.text = "1,234 개의 메모"
+        let numberOfMemos = dataSource?.viewModel.numberOfAllMemos() ?? 0
+        let nsNumber = NSNumber(integerLiteral: numberOfMemos)
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        
+        label.text = "\(numberFormatter.string(from: nsNumber) ?? "0") 개의 메모"
         label.font = .systemFont(ofSize: 35, weight: .bold)
         titleView.addSubview(label)
         navigationItem.titleView = titleView
