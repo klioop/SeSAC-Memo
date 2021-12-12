@@ -253,6 +253,7 @@ extension MainViewController: UITableViewDelegate {
                         tableView.deleteRows(at: [indexPathToUse], with: .automatic)
                     } completion: { _ in
                         self.mainTableView.reloadData()
+                        self.setTitle()
                     }
                     handler(true)
                 }
